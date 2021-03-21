@@ -20,7 +20,6 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("hello");
         // take current position and assign a new position (0, 0, 0)
         transform.position = new Vector3(0, 0, 0);
     }
@@ -44,23 +43,8 @@ public class Player : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        Vector3 horizontalTranslation = Vector3.right * horizontalInput * speed * Time.deltaTime;
-        Vector3 verticalTranslation = Vector3.up * verticalInput * speed * Time.deltaTime;
-
-        // completion in seconds for the last frame
-        // transform.Translate(horizontalTranslation + verticalTranslation);
-
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0f).normalized;
         transform.Translate(direction * speed * Time.deltaTime);
-
-        // Another way of doing this is treating horizontal and vertical inputs as a unit vector
-        // or direction
-        /*
-         *
-         * Vector3 direction = new Vector3(horizontalInput, verticalInput, 0f);
-         * transform.Translate(direction * speed * Time.deltaTime);
-         *
-         */
 
         // top and bottom bounds ~ Alternatively, we can use Mathf.Clamp to keep movement limited between a min and max y value
         if (transform.position.y <= -3.6f)
