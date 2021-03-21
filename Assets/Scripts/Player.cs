@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     private float fireDelay = 0.5f;
     // Seconds until new laser shot can be fired
     private float newFireTime = -1f;
+    [SerializeField]
+    private int lives = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -72,5 +74,15 @@ public class Player : MonoBehaviour
         newFireTime = Time.time + fireDelay;
         Vector3 laserOffset = Vector3.up * spawnOffset;
         Instantiate(laserPrefab, transform.position + laserOffset, Quaternion.identity);
+    }
+
+    public void Damage()
+    {
+        --lives;
+        // Delete Player if no more lives left
+        if (lives < 1)
+        {
+            Destroy(gameObject);
+        }
     }
 }

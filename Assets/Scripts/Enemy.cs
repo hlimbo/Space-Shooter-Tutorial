@@ -39,8 +39,12 @@ public class Enemy : MonoBehaviour
         }
         else if(other.tag.Equals("Player"))
         {
-            // TODO: damage player
-            Destroy(gameObject);
+            Player player = other.GetComponent<Player>();
+            if(player != null)
+            {
+                player.Damage();
+                Destroy(gameObject);
+            }
         }
     }
 }
