@@ -8,28 +8,56 @@ public class SpawnManager : MonoBehaviour
     private GameObject spawnPrefab;
     [SerializeField]
     private float spawnDelay = 5f;
+    [SerializeField]
+    private GameObject enemyContainer;
+    [SerializeField]
+    private GameObject[] powerups;
+
+    private bool stopSpawning = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnRoutine());
+        StartCoroutine(SpawnEnemyRoutine());
+        StartCoroutine(SpawnPowerupRoutine());
     }
 
     private void OnDestroy()
     {
-        Debug.Log("Killing coroutine");
-        // Kill Coroutine
-        StopCoroutine(SpawnRoutine());
+        Debug.Log("Killing coroutines");
+        StopAllCoroutines();
     }
 
-    // Challenge: Spawn game objects every 5 seconds
-    IEnumerator SpawnRoutine()
+    IEnumerator SpawnEnemyRoutine()
     {
-        while(true)
+        while(!stopSpawning)
         {
-            Vector3 spawnPosition = new Vector3(0f, 6.5f, 0f);
-            Instantiate(spawnPrefab, spawnPosition, Quaternion.identity);
+            Vector3 spawnPosition = new Vector3(RandomXPosition(), 6.5f, 0f);
+            GameObject enemy = Instantiate(spawnPrefab, spawnPosition, Quaternion.identity);
+            enemy.transform.SetParent(enemyContainer.transform);
             yield return new WaitForSeconds(spawnDelay);
         }
+    }
+
+    IEnumerator SpawnPowerupRoutine()
+    {
+        while(!stopSpawning)
+        {
+            int randomDelay = Random.Range(3, 7);
+            yield return new WaitForSeconds(randomDelay);
+            Vector3 spawnPosition = new Vector3(RandomXPosition(), 6.5f, 0f);
+            var randomPowerUp = powerups[(int)PowerUp.Extensions.GetRandomPowerUp()];
+            Instantiate(randomPowerUp, spawnPosition, Quaternion.identity);
+        }
+    }
+
+    public void OnPlayerDeath()
+    {
+        stopSpawning = true;
+    }
+
+    private float RandomXPosition()
+    {
+        return Random.Range(-9f, 9f);
     }
 }

@@ -9,7 +9,11 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float speed = 3.5f;
     [SerializeField]
+    private int speedMultiplier = 2;
+    [SerializeField]
     private GameObject laserPrefab;
+    [SerializeField]
+    private GameObject tripleshotPrefab;
     [SerializeField]
     private float spawnOffset = 0.8f;
     [SerializeField]
@@ -19,11 +23,34 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int lives = 3;
 
+    private SpawnManager spawnManager;
+
+    [SerializeField]
+    private bool isTripleShotEnabled = false;
+    [SerializeField]
+    private bool isSpeedBoostEnabled = false;
+    [SerializeField]
+    private bool isShieldEnabled = false;
+
+    private GameObject shield;
+
     // Start is called before the first frame update
     void Start()
     {
         // take current position and assign a new position (0, 0, 0)
         transform.position = new Vector3(0, 0, 0);
+
+        spawnManager = FindObjectOfType<SpawnManager>();
+        if(spawnManager == null)
+        {
+            Debug.LogError("SpawnManager is null. Check the scene if game object with component SpawnManager exists.");
+        }
+
+        shield = transform.Find("Shield").gameObject;
+        if(!isShieldEnabled)
+        {
+            shield.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -36,7 +63,15 @@ public class Player : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Space) && newFireTime < Time.time)
         {
-            FireLaser();
+            newFireTime = Time.time + fireDelay;
+            if(isTripleShotEnabled)
+            {
+                TripleShot();
+            }
+            else
+            {
+                FireLaser();
+            }
         }
     }
 
@@ -71,18 +106,72 @@ public class Player : MonoBehaviour
 
     void FireLaser()
     {
-        newFireTime = Time.time + fireDelay;
         Vector3 laserOffset = Vector3.up * spawnOffset;
         Instantiate(laserPrefab, transform.position + laserOffset, Quaternion.identity);
     }
 
+    void TripleShot()
+    {
+        Instantiate(tripleshotPrefab, transform.position, Quaternion.identity);
+    }
+
     public void Damage()
     {
+        if(isShieldEnabled)
+        {
+            isShieldEnabled = false;
+            shield.SetActive(isShieldEnabled);
+            return;
+        }
+
         --lives;
         // Delete Player if no more lives left
         if (lives < 1)
         {
+            // Communicate with Spawn Manager to stop spawning more enemies
+            spawnManager?.OnPlayerDeath();
             Destroy(gameObject);
         }
+    }
+
+    public void EnableTripleShot()
+    {
+        isTripleShotEnabled = true;
+    }
+
+    public void TripleShotActive()
+    {
+        isTripleShotEnabled = true;
+        StartCoroutine(TripleShotPowerDownRoutine());
+    }
+
+    IEnumerator TripleShotPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5f);
+        isTripleShotEnabled = false;
+    }
+
+    public void SpeedBoostActive()
+    {
+        // Don't stack speed boosts if its already active
+        if(!isSpeedBoostEnabled)
+        {
+            isSpeedBoostEnabled = true;
+            speed *= speedMultiplier;
+            StartCoroutine(SpeedBoostPowerDownRoutine());
+        }
+    }
+
+    IEnumerator SpeedBoostPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5f);
+        isSpeedBoostEnabled = false;
+        speed /= speedMultiplier;
+    }
+
+    public void ShieldActive()
+    {
+        isShieldEnabled = true;
+        shield.SetActive(isShieldEnabled);
     }
 }

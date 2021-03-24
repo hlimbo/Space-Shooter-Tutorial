@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Medium Article: Creating an Enemy
-
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
@@ -30,7 +28,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag.Equals("Laser"))
         {

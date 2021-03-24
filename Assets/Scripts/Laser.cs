@@ -17,8 +17,14 @@ public class Laser : MonoBehaviour
         // if laser is offscreen or above 7 units from the origin
         if(transform.position.y > 7f)
         {
-            // delete the bullet
-            Destroy(gameObject);
+            if(transform.parent != null)
+            {
+                Destroy(transform.parent.gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
