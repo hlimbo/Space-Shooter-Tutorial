@@ -23,8 +23,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int lives = 3;
 
-    private SpawnManager spawnManager;
-
     [SerializeField]
     private bool isTripleShotEnabled = false;
     [SerializeField]
@@ -33,6 +31,12 @@ public class Player : MonoBehaviour
     private bool isShieldEnabled = false;
 
     private GameObject shield;
+
+    [SerializeField]
+    private int score = 0;
+
+    private SpawnManager spawnManager;
+    private UiManager uiManager;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +48,14 @@ public class Player : MonoBehaviour
         if(spawnManager == null)
         {
             Debug.LogError("SpawnManager is null. Check the scene if game object with component SpawnManager exists.");
+        }
+
+        uiManager = FindObjectOfType<UiManager>();
+        uiManager?.UpdateScore(score);
+
+        if(uiManager == null)
+        {
+            Debug.LogError("UI Manager is null. Check the scene if game object with UiManager component exists");
         }
 
         shield = transform.Find("Shield").gameObject;
@@ -125,11 +137,12 @@ public class Player : MonoBehaviour
         }
 
         --lives;
+        uiManager.UpdateLives(lives);
         // Delete Player if no more lives left
         if (lives < 1)
         {
-            // Communicate with Spawn Manager to stop spawning more enemies
             spawnManager?.OnPlayerDeath();
+            uiManager?.ToggleGameOver(true);
             Destroy(gameObject);
         }
     }
@@ -173,5 +186,11 @@ public class Player : MonoBehaviour
     {
         isShieldEnabled = true;
         shield.SetActive(isShieldEnabled);
+    }
+
+    public void AddScore(int points)
+    {
+        score += points;
+        uiManager?.UpdateScore(score);
     }
 }
