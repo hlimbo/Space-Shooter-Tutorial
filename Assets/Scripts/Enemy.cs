@@ -9,11 +9,19 @@ public class Enemy : MonoBehaviour
     private float speed = 4f;
 
     private Player player;
+    private Animator animator;
+    private Coroutine delayDestructionRef;
 
     // Start is called before the first frame update
     void Start()
     {
         player = FindObjectOfType<Player>();
+        if(player == null)
+        {
+            Debug.LogError("Player reference missing on Enemy.cs script");
+        }
+
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -34,14 +42,31 @@ public class Enemy : MonoBehaviour
     {
         if(other.tag.Equals("Laser"))
         {
-            Destroy(other.gameObject);
-            player?.AddScore(10);
-            Destroy(gameObject);
+            if(delayDestructionRef == null)
+            {
+                Destroy(other.gameObject);
+                player?.AddScore(10);
+                animator.SetTrigger("onEnemyDeath");
+                speed = 0;
+                delayDestructionRef = StartCoroutine(DelayDestruction());
+            }
         }
         else if(other.tag.Equals("Player"))
         {
-            player?.Damage();
-            Destroy(gameObject);
+            if(delayDestructionRef == null)
+            {
+                player?.Damage();
+                animator.SetTrigger("onEnemyDeath");
+                speed = 0;
+                delayDestructionRef = StartCoroutine(DelayDestruction());
+            }
         }
+    }
+
+    IEnumerator DelayDestruction ()
+    {
+        // Perhaps create a Unity article about this
+        yield return null;
+        Destroy(gameObject, animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
     }
 }

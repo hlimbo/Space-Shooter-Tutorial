@@ -15,16 +15,22 @@ public class SpawnManager : MonoBehaviour
 
     private bool stopSpawning = false;
 
-    // Start is called before the first frame update
-    void Start()
+    public void OnBeginSpawning(float secondsDelay)
     {
+        // Stop All coroutines to prevent the same routine running more than once
+        StopAllCoroutines();
+        StartCoroutine(BeginSpawningRoutine(secondsDelay));
+    }
+
+    IEnumerator BeginSpawningRoutine(float secondsDelay)
+    {
+        yield return new WaitForSeconds(secondsDelay);
         StartCoroutine(SpawnEnemyRoutine());
         StartCoroutine(SpawnPowerupRoutine());
     }
 
     private void OnDestroy()
     {
-        Debug.Log("Killing coroutines");
         StopAllCoroutines();
     }
 

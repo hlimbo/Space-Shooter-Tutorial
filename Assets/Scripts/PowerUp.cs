@@ -48,7 +48,7 @@ public class PowerUp : MonoBehaviour
         if(other.tag.Equals("Player"))
         {
             var player = other.GetComponent<Player>();
-            if(player != null)
+            if (player != null)
             {
                 switch (powerUpID)
                 {

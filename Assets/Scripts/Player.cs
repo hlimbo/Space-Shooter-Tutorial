@@ -30,6 +30,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private bool isShieldEnabled = false;
 
+    [SerializeField]
+    private GameObject[] engines;
+
     private GameObject shield;
 
     [SerializeField]
@@ -41,9 +44,6 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // take current position and assign a new position (0, 0, 0)
-        transform.position = new Vector3(0, 0, 0);
-
         spawnManager = FindObjectOfType<SpawnManager>();
         if(spawnManager == null)
         {
@@ -135,6 +135,18 @@ public class Player : MonoBehaviour
             shield.SetActive(isShieldEnabled);
             return;
         }
+
+        // Randomly activate a broken engine upon getting damaged
+
+        // Assumption: there will only be 2 engines in the array
+        int engineToDamageIndex = Random.Range(0, engines.Length);
+        if(engines[engineToDamageIndex].activeInHierarchy)
+        {
+            // damage the other engine instead
+            engineToDamageIndex = (engineToDamageIndex + 1) % engines.Length;
+        }
+
+        engines[engineToDamageIndex].SetActive(true);
 
         --lives;
         uiManager.UpdateLives(lives);
