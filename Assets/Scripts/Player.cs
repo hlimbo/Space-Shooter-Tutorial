@@ -41,7 +41,12 @@ public class Player : MonoBehaviour
     private SpawnManager spawnManager;
     private UiManager uiManager;
 
-    // Start is called before the first frame update
+    [SerializeField]
+    private AudioClip laserFire;
+    [SerializeField]
+    private AudioClip collectPowerUp;
+    private AudioSource audioSource;
+
     void Start()
     {
         spawnManager = FindObjectOfType<SpawnManager>();
@@ -63,6 +68,8 @@ public class Player : MonoBehaviour
         {
             shield.SetActive(false);
         }
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -84,6 +91,16 @@ public class Player : MonoBehaviour
             {
                 FireLaser();
             }
+
+            audioSource.PlayOneShot(laserFire);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag.Equals("Powerup"))
+        {
+            audioSource.PlayOneShot(collectPowerUp);
         }
     }
 

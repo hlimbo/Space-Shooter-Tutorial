@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,9 +15,12 @@ public class Asteroid : MonoBehaviour
 
     private Coroutine delayDestructionRef;
 
+    private AudioSource audioSource;
+
     void Start()
     {
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         spawnManager = FindObjectOfType<SpawnManager>();
     }
 
@@ -42,6 +46,7 @@ public class Asteroid : MonoBehaviour
             {
                 animator.SetTrigger("onDestroyAsteroid");
                 delayDestructionRef = StartCoroutine(DelayDestruction(other));
+                audioSource.Play();
             }
         }
     }

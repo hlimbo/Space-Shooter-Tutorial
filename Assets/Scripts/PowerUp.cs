@@ -63,6 +63,7 @@ public class PowerUp : MonoBehaviour
                         break;
                 }
             }
+
             Destroy(gameObject);
         }
     }

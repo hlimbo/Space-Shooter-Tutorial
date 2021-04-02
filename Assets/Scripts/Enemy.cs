@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     private Player player;
     private Animator animator;
     private Coroutine delayDestructionRef;
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,7 @@ public class Enemy : MonoBehaviour
         }
 
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -49,6 +51,7 @@ public class Enemy : MonoBehaviour
                 animator.SetTrigger("onEnemyDeath");
                 speed = 0;
                 delayDestructionRef = StartCoroutine(DelayDestruction());
+                audioSource.Play();
             }
         }
         else if(other.tag.Equals("Player"))
@@ -59,8 +62,10 @@ public class Enemy : MonoBehaviour
                 animator.SetTrigger("onEnemyDeath");
                 speed = 0;
                 delayDestructionRef = StartCoroutine(DelayDestruction());
+                audioSource.Play();
             }
         }
+
     }
 
     IEnumerator DelayDestruction ()
