@@ -102,6 +102,11 @@ public class Player : MonoBehaviour
         {
             audioSource.PlayOneShot(collectPowerUp);
         }
+        else if (other.tag.Equals("EnemyLaser"))
+        {
+            Damage();
+            Destroy(other.gameObject);
+        }
     }
 
     void CalculateMovement ()

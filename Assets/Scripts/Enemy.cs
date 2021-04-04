@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -13,6 +11,15 @@ public class Enemy : MonoBehaviour
     private Coroutine delayDestructionRef;
     private AudioSource audioSource;
 
+    [SerializeField]
+    private GameObject laser;
+    [SerializeField]
+    private float minShootFrequency;
+    [SerializeField]
+    private float maxShootFrequency;
+    [SerializeField]
+    private float laserSpawnOffset;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +31,8 @@ public class Enemy : MonoBehaviour
 
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+
+        StartCoroutine(FireLaserAtRandomRoutine());
     }
 
     // Update is called once per frame
@@ -73,5 +82,23 @@ public class Enemy : MonoBehaviour
         // Perhaps create a Unity article about this
         yield return null;
         Destroy(gameObject, animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
+    }
+
+    IEnumerator FireLaserAtRandomRoutine ()
+    {
+        while (delayDestructionRef == null)
+        {
+            float shootFrequencySeconds = Random.Range(minShootFrequency, maxShootFrequency);
+            yield return new WaitForSeconds(shootFrequencySeconds);
+            
+            // Don't spawn laser if being destroyed
+            if(delayDestructionRef != null)
+            {
+                yield break;
+            }
+            
+            Vector3 laserOffset = Vector3.down * laserSpawnOffset;
+            Instantiate(laser, transform.position + laserOffset, Quaternion.identity);
+        }
     }
 }

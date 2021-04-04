@@ -32,6 +32,12 @@ public class UiManager : MonoBehaviour
 
     public void UpdateLives(int currentLives)
     {
+        // Don't update UI if out of range
+        if(liveSprites.Length < currentLives || currentLives < 0)
+        {
+            return;
+        }
+
         livesImage.sprite = liveSprites[currentLives];
     }
 

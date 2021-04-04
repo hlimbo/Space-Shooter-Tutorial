@@ -9,4 +9,12 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene(1); // main game scene
     }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
 }

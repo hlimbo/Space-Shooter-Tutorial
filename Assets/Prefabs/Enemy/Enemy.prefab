@@ -48,7 +48,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a92153a632cf33946b1b1e32d81b6842, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 1
+  laser: {fileID: 4234600974577687375, guid: 9794f67224815b74bab4d10e1460fa48, type: 3}
+  minShootFrequency: 1
+  maxShootFrequency: 3
+  laserSpawnOffset: 1.8
 --- !u!212 &1755349548562588492
 SpriteRenderer:
   m_ObjectHideFlags: 0
