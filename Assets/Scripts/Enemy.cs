@@ -79,7 +79,6 @@ public class Enemy : MonoBehaviour
 
     IEnumerator DelayDestruction ()
     {
-        // Perhaps create a Unity article about this
         yield return null;
         Destroy(gameObject, animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
     }

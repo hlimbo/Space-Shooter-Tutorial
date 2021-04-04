@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int speedMultiplier = 2;
     [SerializeField]
+    private float boostMultiplier = 1.25f;
+    private float currentBoostMultiplier = 1f;
+    [SerializeField]
     private GameObject laserPrefab;
     [SerializeField]
     private GameObject tripleshotPrefab;
@@ -47,6 +50,8 @@ public class Player : MonoBehaviour
     private AudioClip collectPowerUp;
     private AudioSource audioSource;
 
+    private Animator thrustAnimator;
+
     void Start()
     {
         spawnManager = FindObjectOfType<SpawnManager>();
@@ -70,6 +75,8 @@ public class Player : MonoBehaviour
         }
 
         audioSource = GetComponent<AudioSource>();
+
+        thrustAnimator = transform.Find("Thruster")?.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -111,11 +118,22 @@ public class Player : MonoBehaviour
 
     void CalculateMovement ()
     {
+        if(Input.GetAxisRaw("ThrustBoost") == 1)
+        {
+            currentBoostMultiplier = boostMultiplier;
+            thrustAnimator?.SetBool("isBoosting", true);
+        }
+        else
+        {
+            currentBoostMultiplier = 1f;
+            thrustAnimator?.SetBool("isBoosting", false);
+        }
+
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0f).normalized;
-        transform.Translate(direction * speed * Time.deltaTime);
+        transform.Translate(direction * speed * currentBoostMultiplier * Time.deltaTime);
 
         // top and bottom bounds ~ Alternatively, we can use Mathf.Clamp to keep movement limited between a min and max y value
         if (transform.position.y <= -3.6f)

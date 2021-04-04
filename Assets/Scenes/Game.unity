@@ -971,7 +971,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1224968439
 MonoBehaviour:
@@ -1145,6 +1145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   speedMultiplier: 2
+  boostMultiplier: 1.75
   laserPrefab: {fileID: 182182377337103962, guid: 06eeeb23203aa764486f6c6c6960e6a3, type: 3}
   tripleshotPrefab: {fileID: 4942713146873438263, guid: 6d7dc891c0ef3c7439d5991f5f87ea85, type: 3}
   spawnOffset: 1.05
@@ -1422,7 +1423,7 @@ SpriteRenderer:
   m_SortingLayerID: -592436875
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: a45d21c30e0154a9ca1a5d6fb2bf3cfa, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1430,7 +1431,7 @@ SpriteRenderer:
   m_Size: {x: 5.12, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &1378582230
@@ -1873,7 +1874,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8334391657371915820, guid: de3d1558aec50a142a04a4ca3a151869, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8334391657371915820, guid: de3d1558aec50a142a04a4ca3a151869, type: 3}
       propertyPath: m_LocalPosition.x
