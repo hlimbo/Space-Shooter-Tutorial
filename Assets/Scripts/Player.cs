@@ -263,4 +263,10 @@ public class Player : MonoBehaviour
         score += points;
         uiManager?.UpdateScore(score);
     }
+
+    public void AddAmmo(int ammo)
+    {
+        currentAmmoCount += ammo;
+        uiManager?.UpdateAmmoText(currentAmmoCount);
+    }
 }

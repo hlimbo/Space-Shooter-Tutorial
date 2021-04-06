@@ -11,6 +11,7 @@ public class PowerUp : MonoBehaviour
         TRIPLE_SHOT,
         SPEED_BOOST,
         SHIELD,
+        AMMO,
     };
 
     public static class Extensions
@@ -60,6 +61,9 @@ public class PowerUp : MonoBehaviour
                         break;
                     case PowerUpType.SHIELD:
                         player.ShieldActive();
+                        break;
+                    case PowerUpType.AMMO:
+                        player.AddAmmo(15);
                         break;
                 }
             }
