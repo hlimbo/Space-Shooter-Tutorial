@@ -48,9 +48,15 @@ public class Player : MonoBehaviour
     private AudioClip laserFire;
     [SerializeField]
     private AudioClip collectPowerUp;
+    [SerializeField]
+    private AudioClip noAmmoSound;
     private AudioSource audioSource;
 
     private Animator thrustAnimator;
+
+    [SerializeField]
+    private int startingAmmoCount = 15;
+    private int currentAmmoCount;
 
     void Start()
     {
@@ -77,6 +83,8 @@ public class Player : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         thrustAnimator = transform.Find("Thruster")?.GetComponent<Animator>();
+
+        currentAmmoCount = startingAmmoCount;
     }
 
     // Update is called once per frame
@@ -93,13 +101,23 @@ public class Player : MonoBehaviour
             if(isTripleShotEnabled)
             {
                 TripleShot();
+                audioSource.PlayOneShot(laserFire);
             }
             else
             {
-                FireLaser();
+                if (currentAmmoCount > 0)
+                {
+                    FireLaser();
+                    --currentAmmoCount;
+                    uiManager?.UpdateAmmoText(currentAmmoCount);
+                    audioSource.PlayOneShot(laserFire);
+                }
+                else
+                {
+                    audioSource.PlayOneShot(noAmmoSound);
+                }
             }
 
-            audioSource.PlayOneShot(laserFire);
         }
     }
 

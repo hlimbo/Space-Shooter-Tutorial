@@ -16,8 +16,10 @@ public class UiManager : MonoBehaviour
     private Text gameOverText;
     [SerializeField]
     private Text restartText;
-    private GameManager gameManager;
+    [SerializeField]
+    private Text ammoText;
 
+    private GameManager gameManager;
     private Coroutine flickerRef;
 
     private void Start()
@@ -71,5 +73,10 @@ public class UiManager : MonoBehaviour
             gameOverText.enabled = false;
             yield return new WaitForSeconds(0.5f);
         }
+    }
+
+    public void UpdateAmmoText(int ammoCount)
+    {
+        ammoText.text = $"{ammoCount}";
     }
 }

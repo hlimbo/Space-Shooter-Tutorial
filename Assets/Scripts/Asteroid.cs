@@ -57,7 +57,6 @@ public class Asteroid : MonoBehaviour
         // so that the animator component can grab the explosion animation clip
         yield return null;
         var currentClipInfo = animator.GetCurrentAnimatorClipInfo(0);
-        Debug.Log("Length of clip: " + currentClipInfo[0].clip.length);
         spawnManager?.OnBeginSpawning(currentClipInfo[0].clip.length);
         Destroy(gameObject, currentClipInfo[0].clip.length);
         Destroy(other.gameObject);
