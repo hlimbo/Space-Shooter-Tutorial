@@ -1,7 +1,5 @@
-// Part of .NET Framework
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -23,8 +21,10 @@ public class Player : MonoBehaviour
     private float fireDelay = 0.5f;
     // Seconds until new laser shot can be fired
     private float newFireTime = -1f;
+
+    private const int MAX_LIVES = 3;
     [SerializeField]
-    private int lives = 3;
+    private int lives = MAX_LIVES;
 
     [SerializeField]
     private bool isTripleShotEnabled = false;
@@ -194,17 +194,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        // Randomly activate a broken engine upon getting damaged
-
-        // Assumption: there will only be 2 engines in the array
-        int engineToDamageIndex = Random.Range(0, engines.Length);
-        if(engines[engineToDamageIndex].activeInHierarchy)
-        {
-            // damage the other engine instead
-            engineToDamageIndex = (engineToDamageIndex + 1) % engines.Length;
-        }
-
-        engines[engineToDamageIndex].SetActive(true);
+        ToggleEngineDamage(true);
 
         --lives;
         uiManager.UpdateLives(lives);
@@ -268,5 +258,30 @@ public class Player : MonoBehaviour
     {
         currentAmmoCount += ammo;
         uiManager?.UpdateAmmoText(currentAmmoCount);
+    }
+
+    public void IncrementLives()
+    {
+        // Cap lives at MAX_LIVES
+        if(lives + 1 <= MAX_LIVES)
+        {
+            ++lives;
+            uiManager?.UpdateLives(lives);
+            ToggleEngineDamage(false);
+        }
+    }
+
+    // Used to apply damage / repair vfx
+    private void ToggleEngineDamage(bool toggle)
+    {
+        // Assumption: there will only be 2 engines in the array
+        int engineToDamageIndex = Random.Range(0, engines.Length);
+        // if randomly chosen engine is already damaged or repaired, then repair the other engine instead
+        if (engines[engineToDamageIndex].activeInHierarchy == toggle)
+        {
+            engineToDamageIndex = (engineToDamageIndex + 1) % engines.Length;
+        }
+
+        engines[engineToDamageIndex].SetActive(toggle);
     }
 }

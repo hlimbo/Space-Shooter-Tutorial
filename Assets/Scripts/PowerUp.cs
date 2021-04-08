@@ -12,6 +12,7 @@ public class PowerUp : MonoBehaviour
         SPEED_BOOST,
         SHIELD,
         AMMO,
+        HEALTH
     };
 
     public static class Extensions
@@ -64,6 +65,9 @@ public class PowerUp : MonoBehaviour
                         break;
                     case PowerUpType.AMMO:
                         player.AddAmmo(15);
+                        break;
+                    case PowerUpType.HEALTH:
+                        player.IncrementLives();
                         break;
                 }
             }
