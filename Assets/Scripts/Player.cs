@@ -62,6 +62,8 @@ public class Player : MonoBehaviour
     private int startingAmmoCount = 15;
     private int currentAmmoCount;
 
+    private CameraShake cameraShake;
+
     void Start()
     {
         spawnManager = FindObjectOfType<SpawnManager>();
@@ -89,6 +91,8 @@ public class Player : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         thrustAnimator = transform.Find("Thruster")?.GetComponent<Animator>();
+
+        cameraShake = FindObjectOfType<CameraShake>();
     }
 
     // Update is called once per frame
@@ -210,6 +214,7 @@ public class Player : MonoBehaviour
         }
 
         ToggleEngineDamage(true);
+        cameraShake.Shake();
 
         --lives;
         uiManager.UpdateLives(lives);

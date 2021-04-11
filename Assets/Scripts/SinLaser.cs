@@ -17,8 +17,8 @@ public class SinLaser : MonoBehaviour
     private float xOffset;
 
     // how stretched or expanded the sine wave is
-    // if number > 1 wave will stretch out (meaning it will take longer to reach a full sine wave cycle)
-    // if number < 1 but > 0, wave will shrink (meaning it will take a shorter time to reach a full sine wave cycle)
+    // if number > 1, wave will shrink (meaning it will take a shorter time to reach a full sin wave cycle) 
+    // if number < 1 but > 0,  wave will stretch out (meaning it will take longer to reach a full sine wave cycle)
     [SerializeField]
     private float waveFrequency = 2f;
 
@@ -43,10 +43,10 @@ public class SinLaser : MonoBehaviour
         transform.Translate(new Vector3(xStep, speed * Time.deltaTime));
 
         theta += thetaStep;
-        if(theta > 2 * Math.PI)
-        {
-            theta = 0;
-        }
+        //if(theta > 2 * Math.PI)
+        //{
+        //    theta = 0;
+        //}
 
         // if out of bounds , destroy
         if(transform.position.y >= 7f)

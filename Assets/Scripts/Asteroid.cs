@@ -7,8 +7,6 @@ public class Asteroid : MonoBehaviour
 {
     [SerializeField]
     private float rotateSpeed = 30f;
-    [SerializeField]
-    private float moveSpeed = 10f;
 
     private Animator animator;
     private SpawnManager spawnManager;
