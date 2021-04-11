@@ -12,7 +12,8 @@ public class PowerUp : MonoBehaviour
         SPEED_BOOST,
         SHIELD,
         AMMO,
-        HEALTH
+        HEALTH,
+        DOUBLE_HELIX,
     };
 
     public static class Extensions
@@ -68,6 +69,9 @@ public class PowerUp : MonoBehaviour
                         break;
                     case PowerUpType.HEALTH:
                         player.IncrementLives();
+                        break;
+                    case PowerUpType.DOUBLE_HELIX:
+                        player.DoubleHelixActive();
                         break;
                 }
             }

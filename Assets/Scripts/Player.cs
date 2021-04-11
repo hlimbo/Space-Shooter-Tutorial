@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject tripleshotPrefab;
     [SerializeField]
+    private GameObject doubleHelixPrefab;
+    [SerializeField]
     private float spawnOffset = 0.8f;
     [SerializeField]
     private float fireDelay = 0.5f;
@@ -32,6 +34,8 @@ public class Player : MonoBehaviour
     private bool isSpeedBoostEnabled = false;
     [SerializeField]
     private bool isShieldEnabled = false;
+    [SerializeField]
+    private bool isDoubleHelixShotEnabled = false;
 
     [SerializeField]
     private GameObject[] engines;
@@ -68,6 +72,7 @@ public class Player : MonoBehaviour
 
         uiManager = FindObjectOfType<UiManager>();
         uiManager?.UpdateScore(score);
+        uiManager?.UpdateAmmoText(currentAmmoCount);
 
         if(uiManager == null)
         {
@@ -101,6 +106,11 @@ public class Player : MonoBehaviour
             if(isTripleShotEnabled)
             {
                 TripleShot();
+                audioSource.PlayOneShot(laserFire);
+            }
+            else if(isDoubleHelixShotEnabled)
+            {
+                DoubleHelixShot();
                 audioSource.PlayOneShot(laserFire);
             }
             else
@@ -185,6 +195,12 @@ public class Player : MonoBehaviour
         Instantiate(tripleshotPrefab, transform.position, Quaternion.identity);
     }
 
+    void DoubleHelixShot()
+    {
+        Vector3 laserOffset = Vector3.up * spawnOffset;
+        Instantiate(doubleHelixPrefab, transform.position + laserOffset, Quaternion.identity);
+    }
+
     public void Damage()
     {
         if(isShieldEnabled)
@@ -207,11 +223,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void EnableTripleShot()
-    {
-        isTripleShotEnabled = true;
-    }
-
     public void TripleShotActive()
     {
         isTripleShotEnabled = true;
@@ -222,6 +233,18 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         isTripleShotEnabled = false;
+    }
+
+    public void DoubleHelixActive()
+    {
+        isDoubleHelixShotEnabled = true;
+        StartCoroutine(DoubleHelixPowerDownRoutine());
+    }
+
+    IEnumerator DoubleHelixPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5f);
+        isDoubleHelixShotEnabled = false;
     }
 
     public void SpeedBoostActive()
