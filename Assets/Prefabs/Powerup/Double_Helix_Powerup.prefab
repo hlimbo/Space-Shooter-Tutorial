@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6626110359719334321}
   - component: {fileID: 6626110359719334327}
   - component: {fileID: 6626110359719334325}
-  - component: {fileID: 6626110359719334324}
+  - component: {fileID: 5002497430119037750}
   m_Layer: 0
   m_Name: Double_Helix_Powerup
   m_TagString: Powerup
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6626110359719334320}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.4236865, y: 5.09, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 4f20193199aaa8f499518445ebf63569, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.2627451, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -120,8 +120,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   powerUpID: 5
---- !u!61 &6626110359719334324
-BoxCollider2D:
+--- !u!58 &5002497430119037750
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -133,16 +133,6 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.111222744, y: -0.12711191}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.12, y: 5.12}
-    newSize: {x: 5.12, y: 5.12}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 3.6264334, y: 3.7217665}
-  m_EdgeRadius: 0
+  m_Radius: 1.25

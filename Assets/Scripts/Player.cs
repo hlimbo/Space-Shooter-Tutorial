@@ -72,6 +72,7 @@ public class Player : MonoBehaviour
 
         uiManager = FindObjectOfType<UiManager>();
         uiManager?.UpdateScore(score);
+        currentAmmoCount = startingAmmoCount;
         uiManager?.UpdateAmmoText(currentAmmoCount);
 
         if(uiManager == null)
@@ -88,8 +89,6 @@ public class Player : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         thrustAnimator = transform.Find("Thruster")?.GetComponent<Animator>();
-
-        currentAmmoCount = startingAmmoCount;
     }
 
     // Update is called once per frame

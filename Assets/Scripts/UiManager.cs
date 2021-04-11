@@ -22,7 +22,7 @@ public class UiManager : MonoBehaviour
     private GameManager gameManager;
     private Coroutine flickerRef;
 
-    private void Start()
+    private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
     }
