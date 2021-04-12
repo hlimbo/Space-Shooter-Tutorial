@@ -64,6 +64,11 @@ public class Player : MonoBehaviour
 
     private CameraShake cameraShake;
 
+    [SerializeField]
+    [Range(0, 1f)]
+    private float thrustGauge = 1f;
+    private bool isBoostOnCooldown;
+
     void Start()
     {
         spawnManager = FindObjectOfType<SpawnManager>();
@@ -101,6 +106,7 @@ public class Player : MonoBehaviour
     // Want to move player 1 meter per second instead of 1 meter per frame
     void Update()
     {
+        CalculateBoost();
         CalculateMovement();
         
         if (Input.GetKeyDown(KeyCode.Space) && newFireTime < Time.time)
@@ -147,18 +153,42 @@ public class Player : MonoBehaviour
         }
     }
 
-    void CalculateMovement ()
+    void CalculateBoost ()
     {
-        if(Input.GetAxisRaw("ThrustBoost") == 1)
+        // Limit boost
+        if (Input.GetAxisRaw("ThrustBoost") == 1 && !isBoostOnCooldown)
         {
             currentBoostMultiplier = boostMultiplier;
             thrustAnimator?.SetBool("isBoosting", true);
+            thrustGauge -= Time.deltaTime;
+            uiManager.SetThrustFill(thrustGauge);
+
+            if(thrustGauge <= 0f)
+            {
+                isBoostOnCooldown = true;
+            }
         }
         else
         {
+            if(thrustGauge < 1f)
+            {
+                thrustGauge += Time.deltaTime;
+            }
+
+            if(thrustGauge >= 1f && isBoostOnCooldown)
+            {
+                thrustGauge = 1f;
+                isBoostOnCooldown = false;
+            }
+
+            uiManager.SetThrustFill(thrustGauge);
             currentBoostMultiplier = 1f;
             thrustAnimator?.SetBool("isBoosting", false);
         }
+    }
+
+    void CalculateMovement ()
+    {
 
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");

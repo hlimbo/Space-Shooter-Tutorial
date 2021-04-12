@@ -18,6 +18,8 @@ public class UiManager : MonoBehaviour
     private Text restartText;
     [SerializeField]
     private Text ammoText;
+    [SerializeField]
+    private Image thrustFillImg;
 
     private GameManager gameManager;
     private Coroutine flickerRef;
@@ -78,5 +80,10 @@ public class UiManager : MonoBehaviour
     public void UpdateAmmoText(int ammoCount)
     {
         ammoText.text = $"{ammoCount}";
+    }
+
+    public void SetThrustFill(float fillAmount)
+    {
+        thrustFillImg.fillAmount = fillAmount;
     }
 }

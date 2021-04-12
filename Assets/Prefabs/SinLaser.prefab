@@ -147,5 +147,5 @@ MonoBehaviour:
   speed: 10
   theta: 0
   amplitude: 0.75
-  waveFrequency: 1
+  waveFrequency: 1.2
   waveDirection: -1
