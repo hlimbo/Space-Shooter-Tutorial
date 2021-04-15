@@ -24,9 +24,10 @@ public class Player : MonoBehaviour
     // Seconds until new laser shot can be fired
     private float newFireTime = -1f;
 
-    private const int MAX_LIVES = 3;
     [SerializeField]
-    private int lives = MAX_LIVES;
+    private int maxLives = 3;
+    [SerializeField]
+    private int lives;
 
     [SerializeField]
     private bool isTripleShotEnabled = false;
@@ -81,6 +82,7 @@ public class Player : MonoBehaviour
         uiManager?.UpdateScore(score);
         currentAmmoCount = startingAmmoCount;
         uiManager?.UpdateAmmoText(currentAmmoCount);
+        uiManager?.UpdateLives(lives);
 
         if(uiManager == null)
         {
@@ -155,7 +157,6 @@ public class Player : MonoBehaviour
 
     void CalculateBoost ()
     {
-        // Limit boost
         if (Input.GetAxisRaw("ThrustBoost") == 1 && !isBoostOnCooldown)
         {
             currentBoostMultiplier = boostMultiplier;
@@ -319,8 +320,7 @@ public class Player : MonoBehaviour
 
     public void IncrementLives()
     {
-        // Cap lives at MAX_LIVES
-        if(lives + 1 <= MAX_LIVES)
+        if(lives + 1 <= maxLives)
         {
             ++lives;
             uiManager?.UpdateLives(lives);
