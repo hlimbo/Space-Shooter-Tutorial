@@ -20,6 +20,8 @@ public class UiManager : MonoBehaviour
     private Text ammoText;
     [SerializeField]
     private Image thrustFillImg;
+    [SerializeField]
+    private Text maxAmmoText;
 
     private GameManager gameManager;
     private Coroutine flickerRef;
@@ -80,6 +82,11 @@ public class UiManager : MonoBehaviour
     public void UpdateAmmoText(int ammoCount)
     {
         ammoText.text = $"{ammoCount}";
+    }
+
+    public void SetMaxAmmoText(int maxAmmo)
+    {
+        maxAmmoText.text = maxAmmo.ToString();
     }
 
     public void SetThrustFill(float fillAmount)

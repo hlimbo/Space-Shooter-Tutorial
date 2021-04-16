@@ -38,15 +38,17 @@ public class CatmullRomSpline : MonoBehaviour
         if (points.Count > 0)
         {
             Vector3 nextPoint = points[pointIndex];
+
+            Vector3 normalPoint = (nextPoint - cart.transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(normalPoint);
+            cart.transform.rotation = Quaternion.Slerp(cart.transform.rotation, lookRotation, 5f * Time.deltaTime);
+
             cart.transform.position = Vector3.MoveTowards(cart.transform.position, nextPoint, Time.deltaTime * speedScale);
+            
             if((cart.transform.position - nextPoint).sqrMagnitude <= 0.001f)
             {
                 pointIndex = (pointIndex + 1) % points.Count;
             }
-
-            // teleport cart movement technique looks choppy
-            //cart.transform.position = new Vector3(nextPoint.x, nextPoint.y, nextPoint.z);
-            //pointIndex = (pointIndex + 1) % points.Count;
         }
     }
 

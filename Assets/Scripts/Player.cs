@@ -82,6 +82,7 @@ public class Player : MonoBehaviour
         uiManager?.UpdateScore(score);
         currentAmmoCount = startingAmmoCount;
         uiManager?.UpdateAmmoText(currentAmmoCount);
+        uiManager?.SetMaxAmmoText(startingAmmoCount);
         uiManager?.UpdateLives(lives);
 
         if(uiManager == null)
@@ -314,7 +315,16 @@ public class Player : MonoBehaviour
 
     public void AddAmmo(int ammo)
     {
-        currentAmmoCount += ammo;
+        if(currentAmmoCount + ammo < startingAmmoCount)
+        {
+            currentAmmoCount += ammo;
+        }
+        else if(Mathf.Abs(startingAmmoCount - currentAmmoCount) < startingAmmoCount)
+        {
+            // give remaining bullets instead of fixed amount
+            currentAmmoCount += Mathf.Abs(startingAmmoCount - currentAmmoCount);
+        }
+
         uiManager?.UpdateAmmoText(currentAmmoCount);
     }
 
