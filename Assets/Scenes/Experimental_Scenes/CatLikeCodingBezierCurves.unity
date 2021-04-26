@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e94363eb8d53e3640b9b75f076e85111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 2
+  mode: 1
   goingForward: 1
   spline: {fileID: 407458731}
   duration: 5
