@@ -43,10 +43,6 @@ public class SinLaser : MonoBehaviour
         transform.Translate(new Vector3(xStep, speed * Time.deltaTime));
 
         theta += thetaStep;
-        //if(theta > 2 * Math.PI)
-        //{
-        //    theta = 0;
-        //}
 
         // if out of bounds , destroy
         if(transform.position.y >= 7f)

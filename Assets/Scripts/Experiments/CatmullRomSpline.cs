@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// This is a curve and not a spline because a spline is a collection
+// of curves
 public class CatmullRomSpline : MonoBehaviour
 {
     // Has to be at least 4 points

@@ -146,6 +146,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   theta: 0
-  amplitude: 0.75
-  waveFrequency: 1.2
+  amplitude: 0.5
+  waveFrequency: 0.75
   waveDirection: -1
