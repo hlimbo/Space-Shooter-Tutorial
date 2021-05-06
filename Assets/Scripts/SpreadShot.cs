@@ -9,13 +9,22 @@ public class SpreadShot : MonoBehaviour
     [SerializeField]
     public float speed;
 
+    // Move this logic perhaps into another script that is composed of
+    // Shooting Pattern Component
+    // Movement Pattern Component
+    // Can be called enemy brain
+    [SerializeField]
+    private float shotFrequency = 2f;
+    private float lastShotTime = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
+        lastShotTime = Time.time;
     }
 
     [ContextMenu("Fire Spread Shot Test")]
-    private void FireSpreadShotTest()
+    private void FireSpreadShot()
     {
         Quaternion up = Quaternion.LookRotation(transform.forward, transform.up);
 
@@ -33,6 +42,10 @@ public class SpreadShot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Time.time - lastShotTime >= shotFrequency)
+        {
+            FireSpreadShot();
+            lastShotTime = Time.time;
+        }
     }
 }

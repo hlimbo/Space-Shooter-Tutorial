@@ -20,9 +20,7 @@ public class Bullet : MonoBehaviour
 
         if (transform.position.y > 7f || transform.position.y < -7f)
         {
-            {
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
         }
     }
 }

@@ -20,8 +20,9 @@ public class PathFollower : MonoBehaviour
     {
         progress = Mathf.Clamp01(progress + (Time.deltaTime * speedScale) / duration);
         Vector3 position = spline.GetPoint(progress);
-        transform.localPosition = position;
-        transform.LookAt(position + spline.GetDirection(progress));
+        transform.position = position;
+        var targetRotation = Quaternion.FromToRotation(transform.position, spline.GetDirection(progress));
+        transform.rotation = targetRotation;
     }
 
     [ContextMenu("Reset Position")]
