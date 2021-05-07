@@ -2693,8 +2693,8 @@ MonoBehaviour:
   points:
   - {x: -1.5030751, y: 0.5140748, z: 0}
   - {x: 3.0255775, y: -4.383246, z: 0}
-  - {x: -2.4196682, y: -10.450468, z: 0}
-  - {x: 0.72348833, y: -11.904575, z: 0}
+  - {x: -3.5748258, y: -10.811456, z: 0}
+  - {x: -0.43167305, y: -12.265563, z: 0}
   modes: 0000000000000000
 --- !u!4 &2030742218
 Transform:
@@ -3002,42 +3002,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4816450553602159098, guid: 8043c656591559542af99fab0c7ca6ad, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4816450553602159098, guid: 8043c656591559542af99fab0c7ca6ad, type: 3}
-      propertyPath: shotFrequency
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4816450553602159101, guid: 8043c656591559542af99fab0c7ca6ad, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.24
-      objectReference: {fileID: 0}
-    - target: {fileID: 4816450553602159101, guid: 8043c656591559542af99fab0c7ca6ad, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.06
-      objectReference: {fileID: 0}
-    - target: {fileID: 4816450553602159101, guid: 8043c656591559542af99fab0c7ca6ad, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4816450553602159101, guid: 8043c656591559542af99fab0c7ca6ad, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4816450553602159101, guid: 8043c656591559542af99fab0c7ca6ad, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4816450553602159101, guid: 8043c656591559542af99fab0c7ca6ad, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 270
-      objectReference: {fileID: 0}
     - target: {fileID: 4816450553913086988, guid: 8043c656591559542af99fab0c7ca6ad, type: 3}
       propertyPath: spline
       value: 
-      objectReference: {fileID: 2030742217}
+      objectReference: {fileID: 239648175}
     - target: {fileID: 4816450553913086990, guid: 8043c656591559542af99fab0c7ca6ad, type: 3}
       propertyPath: m_Name
       value: Mini_Enemy
@@ -3085,18 +3053,6 @@ PrefabInstance:
     - target: {fileID: 4816450553913086991, guid: 8043c656591559542af99fab0c7ca6ad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4816450555640188465, guid: 8043c656591559542af99fab0c7ca6ad, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4816450555640188465, guid: 8043c656591559542af99fab0c7ca6ad, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4816450555640188465, guid: 8043c656591559542af99fab0c7ca6ad, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8043c656591559542af99fab0c7ca6ad, type: 3}
