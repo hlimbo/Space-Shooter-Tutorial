@@ -32,8 +32,16 @@ public class PathFollower : MonoBehaviour, IMovable
 
     void IMovable.Move(float deltaTime)
     {
-        progress = Mathf.Clamp01(progress + (deltaTime * speedScale) / duration);
-        Vector3 position = spline.GetPoint(progress);
-        transform.position = position;
+        if(spline != null)
+        {
+            progress = Mathf.Clamp01(progress + (deltaTime * speedScale) / duration);
+            Vector3 position = spline.GetPoint(progress);
+            transform.position = position;
+        }
+    }
+
+    public void AssignPath(BezierSpline spline)
+    {
+        this.spline = spline;
     }
 }

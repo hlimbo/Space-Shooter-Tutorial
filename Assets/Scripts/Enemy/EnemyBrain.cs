@@ -11,6 +11,10 @@ public class EnemyBrain : MonoBehaviour
     private float shotFrequency = 2f;
     private float lastShotTime = 0f;
 
+    [SerializeField]
+    private int maxShotCount = 2;
+    private int currentShotCount = 0;
+
     private void Start()
     {
         lastShotTime = Time.time;
@@ -20,10 +24,11 @@ public class EnemyBrain : MonoBehaviour
 
     private void Update()
     {
-        if (Time.time - lastShotTime >= shotFrequency)
+        if (Time.time - lastShotTime >= shotFrequency && currentShotCount < maxShotCount)
         {
             shootable?.FireShot();
             lastShotTime = Time.time;
+            ++currentShotCount;
         }
 
         movable?.Move(Time.deltaTime);
