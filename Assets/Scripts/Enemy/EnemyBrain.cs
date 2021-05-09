@@ -15,6 +15,9 @@ public class EnemyBrain : MonoBehaviour
     private int maxShotCount = 2;
     private int currentShotCount = 0;
 
+    [SerializeField]
+    private bool enableShooting;
+
     private void Start()
     {
         lastShotTime = Time.time;
@@ -24,11 +27,14 @@ public class EnemyBrain : MonoBehaviour
 
     private void Update()
     {
-        if (Time.time - lastShotTime >= shotFrequency && currentShotCount < maxShotCount)
+        if(enableShooting)
         {
-            shootable?.FireShot();
-            lastShotTime = Time.time;
-            ++currentShotCount;
+            if (Time.time - lastShotTime >= shotFrequency && currentShotCount < maxShotCount)
+            {
+                shootable?.FireShot();
+                lastShotTime = Time.time;
+                ++currentShotCount;
+            }
         }
 
         movable?.Move(Time.deltaTime);

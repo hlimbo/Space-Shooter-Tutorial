@@ -22,6 +22,8 @@ public class UiManager : MonoBehaviour
     private Image thrustFillImg;
     [SerializeField]
     private Text maxAmmoText;
+    [SerializeField]
+    private Text waveText;
 
     private GameManager gameManager;
     private Coroutine flickerRef;
@@ -92,5 +94,21 @@ public class UiManager : MonoBehaviour
     public void SetThrustFill(float fillAmount)
     {
         thrustFillImg.fillAmount = fillAmount;
+    }
+
+    public void SetWaveText(string newText)
+    {
+        if(waveText != null)
+        {
+            waveText.text = $"Starting {newText}";
+        }
+    }
+
+    public void ToggleWaveTextVisibility(bool toggle)
+    {
+        if(waveText != null)
+        {
+            waveText.enabled = toggle;
+        }
     }
 }

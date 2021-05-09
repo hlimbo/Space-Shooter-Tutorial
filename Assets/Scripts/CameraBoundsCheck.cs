@@ -5,13 +5,15 @@ using UnityEngine;
 public class CameraBoundsCheck : MonoBehaviour
 {
     private Camera mainCamera;
+    private WaveManager waveManager;
 
     [SerializeField]
     private bool isVisibleInCamera;
 
     void Start()
     {
-        mainCamera = FindObjectOfType<Camera>();    
+        mainCamera = FindObjectOfType<Camera>();
+        waveManager = FindObjectOfType<WaveManager>();
     }
 
     public bool IsOutOfBounds
@@ -49,5 +51,10 @@ public class CameraBoundsCheck : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void OnDestroy()
+    {
+        waveManager.DecrementEnemyCount();
     }
 }
