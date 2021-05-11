@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Consider throwing this manager class out when building a new 
+// spawn manager for power-ups with weights applied
+
+// TODO: create a component that decides a random starting x position to spawn a gameobject from
+// TODO: create a component that inherits from IMovable that moves a ship straight down
+
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField]
@@ -47,6 +53,7 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnPowerupRoutine()
     {
+        // TODO: create a new system that spawns power-ups using weights
         while(!stopSpawning)
         {
             int randomDelay = Random.Range(3, 7);

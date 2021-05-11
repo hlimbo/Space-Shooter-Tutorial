@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2869483910388259113}
   m_Layer: 0
   m_Name: DoubleHelixShot
-  m_TagString: Untagged
+  m_TagString: Laser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ySpeed: 10
-  sinLaserPrefab: {fileID: 4020168044522319098, guid: af07fad80544b5246b6406709d8be42a, type: 3}
+  sinLaserPrefab: {fileID: 2251292377343617574, guid: af07fad80544b5246b6406709d8be42a, type: 3}
   projectilePairCount: 12

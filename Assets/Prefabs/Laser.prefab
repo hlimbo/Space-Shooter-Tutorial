@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 182182377337103966}
-  - component: {fileID: 6926195801661226563}
   - component: {fileID: 3903195713339339257}
   - component: {fileID: 6511661209167853125}
   - component: {fileID: 5063987363244787426}
+  - component: {fileID: 2907702415507895}
   m_Layer: 0
   m_Name: Laser
   m_TagString: Laser
@@ -34,19 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6926195801661226563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 182182377337103962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1b0d567a3d3fe64d834fb2ff1e45b45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 8
 --- !u!212 &3903195713339339257
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -145,3 +132,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.50813115, y: 2.830378}
   m_EdgeRadius: 0
+--- !u!114 &2907702415507895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182182377337103962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9072f12fc99dee4a9328c0ae7b3c333, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 8
+  yDirection: 1

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4020168044522319621}
   - component: {fileID: 4020168044522319620}
   - component: {fileID: 4020168044522319099}
-  - component: {fileID: 4020168044522319098}
+  - component: {fileID: 2251292377343617574}
   m_Layer: 0
   m_Name: SinLaser
   m_TagString: Laser
@@ -132,7 +132,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.3}
   m_EdgeRadius: 0
---- !u!114 &4020168044522319098
+--- !u!114 &2251292377343617574
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,11 +141,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4020168044522319623}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67402bcdd1e05254282d095b5f0f9ba7, type: 3}
+  m_Script: {fileID: 11500000, guid: f208e58acc2eb304ea179e4880b1e893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 8
   theta: 0
   amplitude: 0.5
   waveFrequency: 0.75
-  waveDirection: -1
+  waveDirection: 1

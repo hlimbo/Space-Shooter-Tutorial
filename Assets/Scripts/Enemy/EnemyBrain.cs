@@ -6,6 +6,7 @@ public class EnemyBrain : MonoBehaviour
 {
     private IShootable shootable;
     private IMovable movable;
+    private Destructible destructible;
 
     [SerializeField]
     private float shotFrequency = 2f;
@@ -23,6 +24,7 @@ public class EnemyBrain : MonoBehaviour
         lastShotTime = Time.time;
         movable = GetComponent<IMovable>();
         shootable = transform.GetComponentInChildren<IShootable>();
+        destructible = GetComponent<Destructible>();
     }
 
     private void Update()
@@ -37,6 +39,11 @@ public class EnemyBrain : MonoBehaviour
             }
         }
 
-        movable?.Move(Time.deltaTime);
+        bool willBeDestroyed = destructible != null && destructible.WillBeDestroyed;
+        if (!willBeDestroyed)
+        {
+            movable?.Move(Time.deltaTime);
+        }
+       
     }
 }

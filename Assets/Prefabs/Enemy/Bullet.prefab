@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2765553535422143562}
   - component: {fileID: 3259966010884626669}
   - component: {fileID: 1508735628465957557}
-  - component: {fileID: 2765553535422143564}
+  - component: {fileID: 3975215935973301006}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: EnemyLaser
@@ -132,7 +132,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2765553535422143564
+--- !u!114 &3975215935973301006
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2765553535422143561}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a4f37faf9c8c0849b08a8ab6a989a01, type: 3}
+  m_Script: {fileID: 11500000, guid: d240e280c50b32540b4e8f1dfc147e9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
+  speed: 4

@@ -42,7 +42,7 @@ public class WaveManager : MonoBehaviour
         while(waveIndex < waves.Length)
         {
             var currentWave = waves[waveIndex];
-            activeEnemyCount = currentWave.enemyPrefabs.Length;
+            activeEnemyCount += currentWave.enemyPrefabs.Length;
 
             uiManager.ToggleWaveTextVisibility(true);
             uiManager.SetWaveText(currentWave.name);

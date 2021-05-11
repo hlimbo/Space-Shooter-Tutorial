@@ -5,25 +5,25 @@ using UnityEngine;
 public class CameraBoundsCheck : MonoBehaviour
 {
     private Camera mainCamera;
-    private WaveManager waveManager;
 
     [SerializeField]
     private bool isVisibleInCamera;
+    [SerializeField]
+    private float yOffset = 0f;
 
     void Start()
     {
         mainCamera = FindObjectOfType<Camera>();
-        waveManager = FindObjectOfType<WaveManager>();
     }
 
     public bool IsOutOfBounds
     {
         get
         {
-            bool isBottom = transform.position.y < mainCamera.transform.position.y - mainCamera.orthographicSize;
+            bool isBottom = transform.position.y < mainCamera.transform.position.y - mainCamera.orthographicSize - yOffset;
             //Debug.Log("isBottom " + isBottom);
             
-            bool isAbove = transform.position.y > mainCamera.transform.position.y + mainCamera.orthographicSize;
+            bool isAbove = transform.position.y > mainCamera.transform.position.y + mainCamera.orthographicSize + yOffset;
             //Debug.Log("isAbove " + isAbove);
 
             // Orthographic width: https://answers.unity.com/questions/230190/how-to-get-the-width-and-height-of-a-orthographic.html
@@ -51,10 +51,5 @@ public class CameraBoundsCheck : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    private void OnDestroy()
-    {
-        waveManager.DecrementEnemyCount();
     }
 }
