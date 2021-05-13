@@ -66,7 +66,11 @@ public class WaveManager : MonoBehaviour
             Wave currentWave = waves[waveIndex];
 
             // Spawn Paths
-            var possiblePaths = Instantiate(currentWave.pathContainer);
+            GameObject possiblePaths = null;
+            if(currentWave.pathContainer != null)
+            {
+                possiblePaths = Instantiate(currentWave.pathContainer);
+            }
 
             while (spawnIndex < currentWave.enemyPrefabs.Length)
             {
@@ -82,7 +86,11 @@ public class WaveManager : MonoBehaviour
                 yield return null;
             }
 
-            Destroy(possiblePaths);
+            if(possiblePaths != null)
+            {
+                Destroy(possiblePaths);
+            }
+
             spawnIndex = 0;
         }
     }

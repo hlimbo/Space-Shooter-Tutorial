@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 6954870286195674241}
   - component: {fileID: 4249903744644757795}
   - component: {fileID: 1547308867040017855}
+  - component: {fileID: 1535161066081971422}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -136,7 +137,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.1977296, y: 2.7915606}
+  m_Size: {x: 2, y: 2}
   m_EdgeRadius: 0
 --- !u!95 &3809519627977651190
 Animator:
@@ -306,6 +307,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isVisibleInCamera: 0
+  yOffset: 2
+--- !u!114 &1535161066081971422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326858265234849962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 057d4223067e77743bae5cabe0af40b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xOffset: 1
   yOffset: 2
 --- !u!1 &3749154480214253822
 GameObject:
