@@ -14,8 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Wave 1
   enemyPrefabs:
+  - {fileID: 8962455935177387003, guid: 8fba7d70f38d37f4db84c548da327a70, type: 3}
   - {fileID: 4816450553913086990, guid: 8043c656591559542af99fab0c7ca6ad, type: 3}
   - {fileID: 4816450553913086990, guid: 8043c656591559542af99fab0c7ca6ad, type: 3}
+  - {fileID: 8962455935177387003, guid: 8fba7d70f38d37f4db84c548da327a70, type: 3}
+  - {fileID: 4816450553913086990, guid: 8043c656591559542af99fab0c7ca6ad, type: 3}
+  - {fileID: 8962455935177387003, guid: 8fba7d70f38d37f4db84c548da327a70, type: 3}
+  - {fileID: 8962455935177387003, guid: 8fba7d70f38d37f4db84c548da327a70, type: 3}
   - {fileID: 4816450553913086990, guid: 8043c656591559542af99fab0c7ca6ad, type: 3}
   - {fileID: 4816450553913086990, guid: 8043c656591559542af99fab0c7ca6ad, type: 3}
   - {fileID: 4816450553913086990, guid: 8043c656591559542af99fab0c7ca6ad, type: 3}
