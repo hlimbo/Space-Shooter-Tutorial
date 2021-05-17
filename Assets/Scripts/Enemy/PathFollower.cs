@@ -16,14 +16,6 @@ public class PathFollower : MonoBehaviour, IMovable
     // Measured between 0 and 1 (parametric t variable)
     private float progress = 0f;
 
-    void Update()
-    {
-        // May need to cut out rotation here as control points of spline influence where the ship should rotate to greatly
-        // just use it to follow a path for now
-        //var targetRotation = Quaternion.FromToRotation(transform.position, spline.GetDirection(progress));
-        //transform.rotation = targetRotation;
-    }
-
     [ContextMenu("Reset Position")]
     private void ResetPosition()
     {
@@ -36,6 +28,9 @@ public class PathFollower : MonoBehaviour, IMovable
         {
             progress = Mathf.Clamp01(progress + (deltaTime * speedScale) / duration);
             Vector3 position = spline.GetPoint(progress);
+
+            // Set this game-object's local up axis (green axis) to point towards the direction its traveling on the spline
+            transform.up = transform.position - position;
             transform.position = position;
         }
     }

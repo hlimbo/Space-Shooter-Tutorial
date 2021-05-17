@@ -11,7 +11,6 @@ public class LookAtPlayer : MonoBehaviour
     private void Awake()
     {
         player = FindObjectOfType<Player>();
-        Debug.Log("player: " + player);
     }
 
     // Update is called once per frame
@@ -19,11 +18,14 @@ public class LookAtPlayer : MonoBehaviour
     {
         if (player != null)
         {
-            //transform.LookAt(player.transform);
+            //transform.LookAt(player.transform, Vector3.up);
 
-            Vector3 diff = player.transform.position - transform.position;
-            float targetAngle = Mathf.Atan2(diff.y, diff.x);
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, targetAngle * Mathf.Rad2Deg + angleOffset);
+            //Vector3 diff = player.transform.position - transform.position;
+            //float targetAngle = Mathf.Atan2(diff.y, diff.x);
+            //transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, targetAngle * Mathf.Rad2Deg + angleOffset);
+
+            // Another way to rotate the enemy based on their local transforms.
+            transform.up = (player.transform.position - transform.position) * -1;
         }
         
     }

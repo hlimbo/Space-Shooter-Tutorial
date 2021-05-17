@@ -70,6 +70,11 @@ public class Player : MonoBehaviour
     private float thrustGauge = 1f;
     private bool isBoostOnCooldown;
 
+    private Camera mainCamera;
+    private float camWidth, camHeight;
+
+    private BoxCollider2D boxCollider;
+
     void Start()
     {
         spawnManager = FindObjectOfType<SpawnManager>();
@@ -101,6 +106,12 @@ public class Player : MonoBehaviour
         thrustAnimator = transform.Find("Thruster")?.GetComponent<Animator>();
 
         cameraShake = FindObjectOfType<CameraShake>();
+
+        mainCamera = FindObjectOfType<Camera>();
+        camHeight = 2f * mainCamera.orthographicSize;
+        camWidth = camHeight * mainCamera.aspect;
+
+        boxCollider = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -111,6 +122,7 @@ public class Player : MonoBehaviour
     {
         CalculateBoost();
         CalculateMovement();
+        CheckMovementBounds();
         
         if (Input.GetKeyDown(KeyCode.Space) && newFireTime < Time.time)
         {
@@ -191,31 +203,36 @@ public class Player : MonoBehaviour
 
     void CalculateMovement ()
     {
-
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0f).normalized;
         transform.Translate(direction * speed * currentBoostMultiplier * Time.deltaTime);
+    }
 
-        // top and bottom bounds ~ Alternatively, we can use Mathf.Clamp to keep movement limited between a min and max y value
-        if (transform.position.y <= -3.6f)
+    void CheckMovementBounds ()
+    {
+        float maxY = mainCamera.transform.position.y + (camHeight / 2f) - (boxCollider.size.y / 2f);
+        float minY = mainCamera.transform.position.y - (camHeight / 2f) + (boxCollider.size.y / 2f);
+        if (transform.position.y < minY)
         {
-            transform.position = new Vector3(transform.position.x, -3.6f, transform.position.z);
+            transform.position = new Vector3(transform.position.x, minY, transform.position.y);
         }
-        else if (transform.position.y >= 5.8f)
+        else if (transform.position.y > maxY)
         {
-            transform.position = new Vector3(transform.position.x, 5.8f, transform.position.z);
+            transform.position = new Vector3(transform.position.x, maxY, transform.position.y);
         }
 
-        // left and right wrap-around
-        if (transform.position.x < -10f)
+        // Left and right wrap-around
+        float minX = mainCamera.transform.position.x - (camWidth / 2f);
+        float maxX = mainCamera.transform.position.x + (camWidth / 2f);
+        if(transform.position.x < minX)
         {
-            transform.position = new Vector3(10f, transform.position.y, transform.position.z);
+            transform.position = new Vector3(maxX, transform.position.y, transform.position.z);
         }
-        else if (transform.position.x > 10f)
+        else if(transform.position.x > maxX)
         {
-            transform.position = new Vector3(-10f, transform.position.y, transform.position.z);
+            transform.position = new Vector3(minX, transform.position.y, transform.position.z);
         }
     }
 
