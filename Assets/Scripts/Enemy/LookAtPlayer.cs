@@ -5,8 +5,8 @@ using UnityEngine;
 public class LookAtPlayer : MonoBehaviour
 {
     private Player player;
-    [SerializeField]
-    private float angleOffset = 90f;
+    //[SerializeField]
+    //private float angleOffset = 90f;
 
     private void Awake()
     {
@@ -25,7 +25,7 @@ public class LookAtPlayer : MonoBehaviour
             //transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, targetAngle * Mathf.Rad2Deg + angleOffset);
 
             // Another way to rotate the enemy based on their local transforms.
-            transform.up = (player.transform.position - transform.position) * -1;
+            transform.up = -(player.transform.position - transform.position).normalized;
         }
         
     }

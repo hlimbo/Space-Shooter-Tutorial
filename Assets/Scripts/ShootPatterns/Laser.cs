@@ -11,12 +11,23 @@ public class Laser : MonoBehaviour
     [SerializeField]
     private int yDirection = 1;
 
+    private Camera mainCamera;
+    private float camHeight;
+
+    void Start()
+    {
+        mainCamera = FindObjectOfType<Camera>();
+        camHeight = 2f * mainCamera.orthographicSize;
+    }
+
     // Update is called once per frame
     void Update()
     {
         transform.Translate(Vector3.up * speed * yDirection * Time.deltaTime);
-        
-        if(transform.position.y > 7f || transform.position.y < -7f)
+
+        float maxY = mainCamera.transform.position.y + (camHeight / 2f);
+        float minY = mainCamera.transform.position.y - (camHeight / 2f);
+        if(transform.position.y > maxY || transform.position.y < minY)
         {
             if(transform.parent != null)
             {

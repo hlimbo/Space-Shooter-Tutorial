@@ -24,7 +24,10 @@ public class Destructible : MonoBehaviour
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
 
-        childObject = transform?.GetChild(0)?.gameObject;
+        if(transform.childCount > 0)
+        {
+            childObject = transform?.GetChild(0)?.gameObject;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

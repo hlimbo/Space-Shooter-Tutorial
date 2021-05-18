@@ -24,14 +24,17 @@ public class PathFollower : MonoBehaviour, IMovable
 
     void IMovable.Move(float deltaTime)
     {
-        if(spline != null)
+        if (enabled)
         {
-            progress = Mathf.Clamp01(progress + (deltaTime * speedScale) / duration);
-            Vector3 position = spline.GetPoint(progress);
+            if (spline != null)
+            {
+                progress = Mathf.Clamp01(progress + (deltaTime * speedScale) / duration);
+                Vector3 position = spline.GetPoint(progress);
 
-            // Set this game-object's local up axis (green axis) to point towards the direction its traveling on the spline
-            transform.up = transform.position - position;
-            transform.position = position;
+                // Set this game-object's local up axis (green axis) to point towards the direction its traveling on the spline
+                transform.up = transform.position - position;
+                transform.position = position;
+            }
         }
     }
 

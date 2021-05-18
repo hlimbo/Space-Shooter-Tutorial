@@ -7,7 +7,7 @@ namespace SplineFramework
     public class BezierSplineInspector : Editor
     {
         private static Color[] modeColors =
-{
+        {
             Color.white, // Free
             Color.yellow, // Aligned
             Color.cyan, // Mirrored

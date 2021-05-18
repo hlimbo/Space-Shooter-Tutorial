@@ -9,11 +9,16 @@ public class DownMover : MonoBehaviour, IMovable
 
     public void Move(float deltaTime)
     {
-        transform.Translate(Vector3.down * speed * deltaTime);
+        if(enabled)
+        {
+            // Vector3.up
+            transform.Translate(transform.up * speed * deltaTime, Space.World);
+        }
     }
 
+    // This function is added to allow this script to be enabled/disabled
     private void Update()
     {
-        Move(Time.deltaTime);
+        
     }
 }
