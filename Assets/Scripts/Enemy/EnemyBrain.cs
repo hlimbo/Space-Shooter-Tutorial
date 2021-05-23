@@ -29,19 +29,20 @@ public class EnemyBrain : MonoBehaviour
 
     private void Update()
     {
-        if(enableShooting)
-        {
-            if (Time.time - lastShotTime >= shotFrequency && currentShotCount < maxShotCount)
-            {
-                shootable?.FireShot();
-                lastShotTime = Time.time;
-                ++currentShotCount;
-            }
-        }
-
         bool willBeDestroyed = destructible != null && destructible.WillBeDestroyed;
+
         if (!willBeDestroyed)
         {
+            if (enableShooting)
+            {
+                if (Time.time - lastShotTime >= shotFrequency && currentShotCount < maxShotCount)
+                {
+                    shootable?.FireShot();
+                    lastShotTime = Time.time;
+                    ++currentShotCount;
+                }
+            }
+
             movable?.Move(Time.deltaTime);
         }
        

@@ -23,20 +23,22 @@ public class PingPongMover : MonoBehaviour, IMovable
     void Awake()
     {
         mainCamera = FindObjectOfType<Camera>();
-        transform.position = new Vector3(
-            mainCamera.transform.position.x,
-            mainCamera.transform.position.y + mainCamera.orthographicSize + yOffset,
-            0f
-        ); ;
+
+        // Need to set only for big enemy player only
+        //transform.position = new Vector3(
+        //    mainCamera.transform.position.x,
+        //    mainCamera.transform.position.y + mainCamera.orthographicSize + yOffset,
+        //    0f
+        //);
     }
 
     public void Move(float deltaTime)
     {
         if(currentDistanceTraveled < maxTravelDistance)
         {
-            Vector3 deltaDistance = Vector3.down * speed * deltaTime;
+            Vector3 deltaDistance = transform.up * speed * deltaTime;
             currentDistanceTraveled += deltaDistance.magnitude;
-            transform.Translate(deltaDistance);
+            transform.Translate(deltaDistance, Space.World);
         }
         else if(currentDistanceTraveled >= maxTravelDistance && startTime == -1f)
         {
@@ -44,7 +46,7 @@ public class PingPongMover : MonoBehaviour, IMovable
         }
         else if(Time.time - startTime >= moveBackDelayInSeconds)
         {
-            transform.Translate(Vector3.up * speed * deltaTime);
+            transform.Translate(-transform.up * speed * deltaTime, Space.World);
         }
     }
 }

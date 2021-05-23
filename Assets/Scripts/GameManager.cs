@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         // If player is destroyed
         if (isGameOver)
         {

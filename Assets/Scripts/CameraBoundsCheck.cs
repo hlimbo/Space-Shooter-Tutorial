@@ -32,6 +32,11 @@ public class CameraBoundsCheck : MonoBehaviour
             bool isLeft = transform.position.x < mainCamera.transform.position.x - (camWidth / 2f);
             bool isRight = transform.position.x > mainCamera.transform.position.x + (camWidth / 2f);
 
+            //Debug.Log("isBottom: " + isBottom);
+            //Debug.Log("isAbove: " + isAbove);
+            //Debug.Log("isLeft: " + isLeft);
+            //Debug.Log("isRight: " + isRight);
+
             return isBottom || isAbove || isLeft || isRight;
         }
     }

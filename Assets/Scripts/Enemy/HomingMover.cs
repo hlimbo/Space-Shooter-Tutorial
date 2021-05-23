@@ -32,7 +32,6 @@ public class HomingMover : MonoBehaviour, IMovable
             //transform.rotation = Quaternion.Slerp(transform.rotation, rotateTarget, deltaTime * 5f);
 
             float rotateAmount = Vector3.Cross(direction, transform.up).z;
-            Debug.Log("Cross Product: " + Vector3.Cross(direction, transform.up));
             rb.angularVelocity = -rotateAmount * rotateSpeed;
             transform.Translate(direction * speed * deltaTime, Space.World);
         }

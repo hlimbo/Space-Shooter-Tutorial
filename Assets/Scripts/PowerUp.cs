@@ -16,15 +16,42 @@ public class PowerUp : MonoBehaviour
         DOUBLE_HELIX,
     };
 
+    private static PowerUpType[] powerUpTypes = Enum.GetValues(typeof(PowerUpType))
+        .Cast<PowerUpType>().ToArray();
+
+    private static Dictionary<PowerUpType, int> weightTable = new Dictionary<PowerUpType, int>()
+    {
+        { PowerUpType.TRIPLE_SHOT,  90 },
+        { PowerUpType.SPEED_BOOST,  15 },
+        { PowerUpType.SHIELD, 30 },
+        { PowerUpType.AMMO, 105 },
+        { PowerUpType.HEALTH, 60 },
+        { PowerUpType.DOUBLE_HELIX, 60 },
+    };
+
     public static class Extensions
     {
         public static PowerUpType GetRandomPowerUp()
         {
-            var powerUpTypes = Enum.GetValues(typeof(PowerUpType))
-                .Cast<PowerUpType>().ToArray();
-
             int randomIndex = UnityEngine.Random.Range(0, powerUpTypes.Length);
             return powerUpTypes[randomIndex];
+        }
+
+        public static PowerUpType GetWeightedRandomPowerUp ()
+        {
+            int[] weights = weightTable.Values.ToArray();
+            int randomWeight = UnityEngine.Random.Range(0, weights.Sum());
+            for (int i = 0;i < weights.Length; ++i)
+            {
+                randomWeight -= weights[i];
+                if (randomWeight < 0)
+                {
+                    return powerUpTypes[i];
+                }
+            }
+
+            // Should not default to this
+            return PowerUpType.AMMO;
         }
     }
 

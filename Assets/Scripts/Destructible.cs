@@ -11,6 +11,11 @@ public class Destructible : MonoBehaviour
     private Coroutine delayDestructionRef = null;
     private AudioSource audioSource;
 
+    private IMovable[] movables;
+
+    [SerializeField]
+    private int hp = 1;
+
     public bool WillBeDestroyed => delayDestructionRef != null;
 
     // Other 3d enemy asset if available
@@ -28,34 +33,43 @@ public class Destructible : MonoBehaviour
         {
             childObject = transform?.GetChild(0)?.gameObject;
         }
+
+        movables = GetComponentsInParent<IMovable>();
     }
 
+    // TODO add special effect
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag.Equals("Laser"))
         {
-            if(delayDestructionRef == null)
+            --hp;
+            Destroy(other.gameObject);
+            if (hp <= 0)
             {
-                player?.AddScore(10);
-                animator.SetTrigger("onEnemyDeath");
-                audioSource.Play();
-                delayDestructionRef = StartCoroutine(DelayDestruction());
-
-                Destroy(other.gameObject);
-
-                if(childObject != null)
+                if (delayDestructionRef == null)
                 {
-                    Destroy(childObject);
+                    player?.AddScore(10);
+                    animator.SetTrigger("onEnemyDeath");
+                    audioSource.Play();
+                    DisableMovement();
+                    delayDestructionRef = StartCoroutine(DelayDestruction());
+
+                    if (childObject != null)
+                    {
+                        Destroy(childObject);
+                    }
                 }
             }
         }
         else if(other.tag.Equals("Player"))
         {
+            hp = 0;
             if(delayDestructionRef == null)
             {
                 player?.Damage();
                 animator.SetTrigger("onEnemyDeath");
                 audioSource.Play();
+                DisableMovement();
                 delayDestructionRef = StartCoroutine(DelayDestruction());
 
                 if (childObject != null)
@@ -70,6 +84,7 @@ public class Destructible : MonoBehaviour
     {
         if(tag.Equals("Enemy"))
         {
+            Debug.Log("Decrementing Enemy Count: " + name);
             waveManager?.DecrementEnemyCount();
         }
     }
@@ -78,5 +93,16 @@ public class Destructible : MonoBehaviour
     {
         yield return null;
         Destroy(gameObject, animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
+    }
+
+    private void DisableMovement ()
+    {
+        if (movables != null && movables.Length > 0)
+        {
+            foreach(var movable in movables)
+            {
+                (movable as MonoBehaviour).enabled = false;
+            }
+        }
     }
 }
