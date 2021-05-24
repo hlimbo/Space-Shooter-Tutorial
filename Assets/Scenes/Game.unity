@@ -152,7 +152,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &140121636
 MonoBehaviour:
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPrefab: {fileID: 1326858265234849962, guid: f635f6c0049f96b4ba522dff3df8b88f, type: 3}
-  spawnDelay: 5
+  spawnDelay: 2
   enemyContainer: {fileID: 2007141561}
   powerups:
   - {fileID: 6845688719895597244, guid: e32e037037fc31543b09b4383103c373, type: 3}
@@ -1106,7 +1106,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &894243022
 GameObject:
@@ -1467,7 +1467,7 @@ RectTransform:
   - {fileID: 1918761176}
   - {fileID: 1671890155}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1554,6 +1554,10 @@ MonoBehaviour:
   noAmmoSound: {fileID: 8300000, guid: a8069aaebf9f2d849917dcc5d3d82704, type: 3}
   startingAmmoCount: 100
   thrustGauge: 1
+  attractRadius: 7
+  powerupMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!212 &1265621438
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1621,7 +1625,7 @@ Transform:
   - {fileID: 1638260607}
   - {fileID: 390413041}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1265621440
 BoxCollider2D:
@@ -2400,7 +2404,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5098150609423588840
 PrefabInstance:

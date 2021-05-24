@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -75,6 +76,19 @@ public class Player : MonoBehaviour
 
     private BoxCollider2D boxCollider;
 
+    private bool isAttracting = false;
+    [SerializeField]
+    private float attractRadius = 5f;
+    public float AttractRadius => attractRadius;
+
+    private List<PowerUp> attractedPowerups = new List<PowerUp>();
+
+    [SerializeField]
+    private LayerMask powerupMask;
+
+    [SerializeField]
+    private float attractSpeed = 5f;
+
     void Start()
     {
         spawnManager = FindObjectOfType<SpawnManager>();
@@ -114,10 +128,6 @@ public class Player : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
     }
 
-    // Update is called once per frame
-    // Update is called 1 frame or 60 frames per second
-    // 1 meter per frame => 60 meters per second approx
-    // Want to move player 1 meter per second instead of 1 meter per frame
     void Update()
     {
         CalculateBoost();
@@ -152,6 +162,58 @@ public class Player : MonoBehaviour
                 }
             }
 
+        }
+    
+        if (Input.GetKey(KeyCode.C))
+        {
+            isAttracting = true;
+        }
+        else if(Input.GetKeyUp(KeyCode.C))
+        {
+            isAttracting = false;
+        }
+    }
+
+    // add to power up set
+    // if powerup does not exist in new list, remove from set
+    // foreach item in set, check if power up is in
+    private void FixedUpdate()
+    {
+        if (isAttracting)
+        {
+            Collider2D[] newPowerupColliders = Physics2D.OverlapCircleAll(transform.position, attractRadius, powerupMask);
+            var newPowerupSet = new HashSet<PowerUp>(newPowerupColliders.Select(p => p.GetComponent<PowerUp>()).Where(p => p != null).ToList());
+
+            for(int i = 0;i < attractedPowerups.Count; ++i)
+            {
+                var powerup = attractedPowerups[i];
+                if (!newPowerupSet.Contains(powerup))
+                {
+                    if(attractedPowerups.Remove(powerup))
+                    {
+                        --i;
+                        powerup.IsAttracted = false;
+                    }
+                }
+            }
+
+            attractedPowerups.AddRange(newPowerupSet);
+            attractedPowerups = new HashSet<PowerUp>(attractedPowerups).ToList();
+
+            foreach (var powerup in attractedPowerups)
+            {
+                powerup.IsAttracted = true;
+                powerup.MoveTowards(transform.position, attractSpeed);
+            } 
+        }
+        else
+        {
+            foreach(var powerup in attractedPowerups)
+            {
+                powerup.IsAttracted = false;
+            }
+
+            attractedPowerups.Clear();
         }
     }
 

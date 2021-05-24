@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3506345429710995696}
   - component: {fileID: 3506345429710995703}
   - component: {fileID: 3506345429710995697}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Speed_Powerup
   m_TagString: Powerup
   m_Icon: {fileID: 0}
@@ -156,4 +156,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   powerUpID: 1
-  clip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}

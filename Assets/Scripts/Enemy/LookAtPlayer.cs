@@ -26,7 +26,7 @@ public class LookAtPlayer : MonoBehaviour
 
             // TODO: figure out why rotation isn't locked on Z only
             // Another way to rotate the enemy based on their local transforms.
-            transform.up = (player.transform.position - transform.position).normalized;
+            //transform.up = (player.transform.position - transform.position).normalized;
         }
         
     }

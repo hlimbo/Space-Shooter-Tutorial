@@ -5,9 +5,6 @@ using UnityEngine;
 // Consider throwing this manager class out when building a new 
 // spawn manager for power-ups with weights applied
 
-// TODO: create a component that decides a random starting x position to spawn a gameobject from
-// TODO: create a component that inherits from IMovable that moves a ship straight down
-
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField]
@@ -20,6 +17,19 @@ public class SpawnManager : MonoBehaviour
     private GameObject[] powerups;
 
     private bool stopSpawning = false;
+
+    private void Start()
+    {
+        StartCoroutine(SpawnPowerupRoutine());
+    }
+
+    private void Update()
+    {
+        // Toggle this script on/off
+    }
+
+
+    // Don't spawn power-ups periodically, only give a chance to spawn when an enemy is destroyed
 
     public void OnBeginSpawning(float secondsDelay)
     {
@@ -53,14 +63,12 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnPowerupRoutine()
     {
-        // TODO: create a new system that spawns power-ups using weights
         while(!stopSpawning)
         {
             int randomDelay = Random.Range(3, 7);
             yield return new WaitForSeconds(randomDelay);
             Vector3 spawnPosition = new Vector3(RandomXPosition(), 6.5f, 0f);
-            var randomPowerUp = powerups[(int)PowerUp.Extensions.GetRandomPowerUp()];
-            Instantiate(randomPowerUp, spawnPosition, Quaternion.identity);
+            SpawnRandomPowerup(spawnPosition);
         }
     }
 
@@ -72,5 +80,11 @@ public class SpawnManager : MonoBehaviour
     private float RandomXPosition()
     {
         return Random.Range(-9f, 9f);
+    }
+
+    public void SpawnRandomPowerup (Vector3 spawnPosition)
+    {
+        var randomPowerUp = powerups[(int)PowerUp.Extensions.GetWeightedRandomPowerUp()];
+        Instantiate(randomPowerUp, spawnPosition, Quaternion.identity);
     }
 }

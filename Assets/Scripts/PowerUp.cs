@@ -55,22 +55,37 @@ public class PowerUp : MonoBehaviour
         }
     }
 
-    // Move down at speed of 3
     [SerializeField]
     private float speed = 3f;
     [SerializeField]
     private PowerUpType powerUpID;
 
+    private bool isAttracted = false;
+    public bool IsAttracted
+    {
+        get => isAttracted;
+        set { isAttracted = value; }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.down * speed * Time.deltaTime);
+        if (!isAttracted)
+        {
+            transform.Translate(Vector3.down * speed * Time.deltaTime);
+        }
         
         // If below screen
         if(transform.position.y < -5f)
         {
             Destroy(gameObject);
         }
+    }
+
+    public void MoveTowards (Vector3 otherPosition, float attractSpeed)
+    {
+        Vector3 direction = (otherPosition - transform.position).normalized;
+        transform.Translate(direction * attractSpeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

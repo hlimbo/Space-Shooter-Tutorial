@@ -6,10 +6,12 @@ public class Destructible : MonoBehaviour
 {
     private Player player;
     private WaveManager waveManager;
+    private SpawnManager spawnManager;
 
     private Animator animator;
     private Coroutine delayDestructionRef = null;
     private AudioSource audioSource;
+    private Collider2D collider2D;
 
     private IMovable[] movables;
 
@@ -25,9 +27,11 @@ public class Destructible : MonoBehaviour
     {
         player = FindObjectOfType<Player>();
         waveManager = FindObjectOfType<WaveManager>();
+        spawnManager = FindObjectOfType<SpawnManager>();
 
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        collider2D = GetComponent<Collider2D>();
 
         if(transform.childCount > 0)
         {
@@ -37,7 +41,7 @@ public class Destructible : MonoBehaviour
         movables = GetComponentsInParent<IMovable>();
     }
 
-    // TODO add special effect
+    // POLISH add special effect when getting damaged
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag.Equals("Laser"))
@@ -48,15 +52,20 @@ public class Destructible : MonoBehaviour
             {
                 if (delayDestructionRef == null)
                 {
+                    collider2D.enabled = false;
                     player?.AddScore(10);
                     animator.SetTrigger("onEnemyDeath");
                     audioSource.Play();
                     DisableMovement();
                     delayDestructionRef = StartCoroutine(DelayDestruction());
 
-                    if (childObject != null)
+                    if (spawnManager != null)
                     {
-                        Destroy(childObject);
+                        // 40 percent chance an enemy drops a random power-up
+                        if (Random.value <= 0.4f)
+                        {
+                            spawnManager.SpawnRandomPowerup(transform.position);
+                        }
                     }
                 }
             }
@@ -71,11 +80,6 @@ public class Destructible : MonoBehaviour
                 audioSource.Play();
                 DisableMovement();
                 delayDestructionRef = StartCoroutine(DelayDestruction());
-
-                if (childObject != null)
-                {
-                    Destroy(childObject);
-                }
             }
         }
     }
@@ -93,6 +97,16 @@ public class Destructible : MonoBehaviour
     {
         yield return null;
         Destroy(gameObject, animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
+
+        if (childObject != null)
+        {
+            Destroy(childObject, animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
+        }
+
+        if (transform.parent != null)
+        {
+            Destroy(transform.parent.gameObject, animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
+        }
     }
 
     private void DisableMovement ()
