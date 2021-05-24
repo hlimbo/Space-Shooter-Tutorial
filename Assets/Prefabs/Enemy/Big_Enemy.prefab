@@ -240,6 +240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 5
+  dmgMaterial: {fileID: 2100000, guid: 04e055516f754bd41b9d66585704ce82, type: 2}
 --- !u!1 &475160120156700046
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class Destructible : MonoBehaviour
     private Animator animator;
     private Coroutine delayDestructionRef = null;
     private AudioSource audioSource;
-    private Collider2D collider2D;
+    private new Collider2D collider2D;
 
     private IMovable[] movables;
 
@@ -22,6 +22,12 @@ public class Destructible : MonoBehaviour
 
     // Other 3d enemy asset if available
     private GameObject childObject;
+
+    private SpriteRenderer spriteRenderer;
+    [SerializeField]
+    private Material dmgMaterial;
+
+    private Coroutine damageRoutineRef;
 
     private void Awake()
     {
@@ -39,6 +45,7 @@ public class Destructible : MonoBehaviour
         }
 
         movables = GetComponentsInParent<IMovable>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // POLISH add special effect when getting damaged
@@ -67,6 +74,13 @@ public class Destructible : MonoBehaviour
                             spawnManager.SpawnRandomPowerup(transform.position);
                         }
                     }
+                }
+            }
+            else
+            {
+                if (damageRoutineRef == null)
+                {
+                    damageRoutineRef = StartCoroutine(DamageEffectRoutine());
                 }
             }
         }
@@ -107,6 +121,21 @@ public class Destructible : MonoBehaviour
         {
             Destroy(transform.parent.gameObject, animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
         }
+    }
+
+    IEnumerator DamageEffectRoutine ()
+    {
+        var originalMat = spriteRenderer.material;
+
+        spriteRenderer.material = dmgMaterial;
+        yield return new WaitForSeconds(0.15f);
+        spriteRenderer.material = originalMat;
+        yield return new WaitForSeconds(0.15f);
+        spriteRenderer.material = dmgMaterial;
+        yield return new WaitForSeconds(0.15f);
+        spriteRenderer.material = originalMat;
+
+        damageRoutineRef = null;
     }
 
     private void DisableMovement ()
