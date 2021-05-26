@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpreadShot : MonoBehaviour, IShootable
 {
     [SerializeField]
-    public Bullet bulletPrefab;
+    public Laser laserPrefab;
     [SerializeField]
     public float speed;
 
@@ -14,14 +14,14 @@ public class SpreadShot : MonoBehaviour, IShootable
     {
         Quaternion up = Quaternion.LookRotation(transform.forward, transform.up);
 
-        var bullets = new Bullet[3];
-        bullets[0] = Instantiate(bulletPrefab, transform.position, up, null);
-        bullets[1] = Instantiate(bulletPrefab, transform.position, up * Quaternion.Euler(0, 0, 45), null);
-        bullets[2] = Instantiate(bulletPrefab, transform.position, up * Quaternion.Euler(0, 0, -45), null);
+        var lasers = new Laser[3];
+        lasers[0] = Instantiate(laserPrefab, transform.position, up, null);
+        lasers[1] = Instantiate(laserPrefab, transform.position, up * Quaternion.Euler(0, 0, 45), null);
+        lasers[2] = Instantiate(laserPrefab, transform.position, up * Quaternion.Euler(0, 0, -45), null);
 
-        foreach (var bullet in bullets)
+        foreach (var laser in lasers)
         {
-            bullet.Speed = speed;
+            laser.Speed = speed;
         }
     }
 

@@ -48,7 +48,6 @@ public class Destructible : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    // POLISH add special effect when getting damaged
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag.Equals("Laser"))

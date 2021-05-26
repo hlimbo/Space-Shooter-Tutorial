@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AggroEnemyBrain : MonoBehaviour
+public class AggroEnemyBrain : BaseEnemyBrain
 {
     private IMovable mainMovable;
     private IMovable secondaryMovable;
@@ -45,6 +45,9 @@ public class AggroEnemyBrain : MonoBehaviour
         }
 
         (mainMovable as MonoBehaviour).enabled = false;
-        (secondaryMovable as MonoBehaviour).enabled = true;
+
+        var homingMover = (HomingMover)secondaryMovable;
+        homingMover.enabled = true;
+        homingMover.SetTarget(player.gameObject);
     }
 }

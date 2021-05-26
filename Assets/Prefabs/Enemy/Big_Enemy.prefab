@@ -386,5 +386,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74bad2d62826f544b89c9e7e4fd95520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3975215935973301006, guid: 7dee2969f01657e4496392ac720fd0bc, type: 3}
+  laserPrefab: {fileID: 8201904950035199610, guid: 9b1b66be52dd4754db3e1f7911bb2555, type: 3}
   speed: 2

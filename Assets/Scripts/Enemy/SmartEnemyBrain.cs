@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SmartEnemyBrain : MonoBehaviour
+public class SmartEnemyBrain : BaseEnemyBrain
 {
     private IMovable movable;
     private IShootable shootable;

@@ -9,21 +9,26 @@ public class HomingMover : MonoBehaviour, IMovable
     [SerializeField]
     private float rotateSpeed = 100f;
 
-    private Player player;
+    [SerializeField]
+    private GameObject target;
     private Rigidbody2D rb;
 
     void Awake()
     {
-        player = FindObjectOfType<Player>();
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    public void SetTarget (GameObject target)
+    {
+        this.target = target;
     }
 
     // An alternative is to rotate ship using Cross Product and using rigidbody 2d
     public void Move(float deltaTime)
     {
-        if (enabled)
+        if (enabled && target != null)
         {
-            Vector3 direction = (player.transform.position - transform.position).normalized;
+            Vector3 direction = (target.transform.position - transform.position).normalized;
 
             // Why this code doesn't work ~ explain in an article TODO
             // This function causes ship to rotate towards a specific direction and will cause the ship to move away from player on rotation

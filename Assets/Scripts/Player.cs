@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject doubleHelixPrefab;
     [SerializeField]
+    private GameObject homingLasersPrefab;
+    [SerializeField]
     private float spawnOffset = 0.8f;
     [SerializeField]
     private float fireDelay = 0.5f;
@@ -38,6 +40,8 @@ public class Player : MonoBehaviour
     private bool isShieldEnabled = false;
     [SerializeField]
     private bool isDoubleHelixShotEnabled = false;
+    [SerializeField]
+    private bool isHomingLasersEnabled = false;
 
     [SerializeField]
     private GameObject[] engines;
@@ -145,6 +149,11 @@ public class Player : MonoBehaviour
             else if(isDoubleHelixShotEnabled)
             {
                 DoubleHelixShot();
+                audioSource.PlayOneShot(laserFire);
+            }
+            else if(isHomingLasersEnabled)
+            {
+                HomingLasersShot();
                 audioSource.PlayOneShot(laserFire);
             }
             else
@@ -313,6 +322,11 @@ public class Player : MonoBehaviour
     {
         Vector3 laserOffset = Vector3.up * spawnOffset;
         Instantiate(doubleHelixPrefab, transform.position + laserOffset, Quaternion.identity);
+    }
+
+    void HomingLasersShot()
+    {
+        Instantiate(homingLasersPrefab, transform.position, Quaternion.identity);
     }
 
     public void Damage()

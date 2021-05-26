@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74bad2d62826f544b89c9e7e4fd95520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3975215935973301006, guid: 7dee2969f01657e4496392ac720fd0bc, type: 3}
+  laserPrefab: {fileID: 8201904950035199610, guid: 9b1b66be52dd4754db3e1f7911bb2555, type: 3}
   speed: 4
 --- !u!1 &4816450553913086990
 GameObject:
@@ -399,9 +399,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8843338295232832440, guid: 5f8b23b96522838458c2dc79bac77c32, type: 3}
-    - {fileID: 6692407203199546381, guid: 5f8b23b96522838458c2dc79bac77c32, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f8b23b96522838458c2dc79bac77c32, type: 3}
 --- !u!1 &4816450553602159100 stripped
 GameObject:
