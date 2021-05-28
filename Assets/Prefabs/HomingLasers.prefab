@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 99373381782255378}
-  - component: {fileID: 43095025}
+  - component: {fileID: -6841153680038173214}
   m_Layer: 0
-  m_Name: HomingBullets
+  m_Name: HomingLasers
   m_TagString: Laser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +35,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &43095025
+--- !u!114 &-6841153680038173214
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,11 +44,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 99373381782255379}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4294906e4cc865b48be4add54eaef6ae, type: 3}
+  m_Script: {fileID: 11500000, guid: feb96d1ad067088499f6df5b05b23f9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isVisibleInCamera: 0
-  yOffset: 0
 --- !u!1001 &1696146908719152173
 PrefabInstance:
   m_ObjectHideFlags: 0

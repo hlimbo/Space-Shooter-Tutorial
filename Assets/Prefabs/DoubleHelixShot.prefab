@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2869483910388259112}
   - component: {fileID: 2869483910388259113}
-  - component: {fileID: 6804480291564648604}
   m_Layer: 0
   m_Name: DoubleHelixShot
   m_TagString: Laser
@@ -47,17 +46,3 @@ MonoBehaviour:
   ySpeed: 10
   sinLaserPrefab: {fileID: 2251292377343617574, guid: af07fad80544b5246b6406709d8be42a, type: 3}
   projectilePairCount: 12
---- !u!114 &6804480291564648604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2869483910388259115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4294906e4cc865b48be4add54eaef6ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isVisibleInCamera: 0
-  yOffset: 0

@@ -17,6 +17,7 @@ public class Destructible : MonoBehaviour
 
     [SerializeField]
     private int hp = 1;
+    public int Hp => hp;
 
     public bool WillBeDestroyed => delayDestructionRef != null;
 
@@ -60,8 +61,8 @@ public class Destructible : MonoBehaviour
                 {
                     collider2D.enabled = false;
                     player?.AddScore(10);
-                    animator.SetTrigger("onEnemyDeath");
-                    audioSource.Play();
+                    animator?.SetTrigger("onEnemyDeath");
+                    audioSource?.Play();
                     DisableMovement();
                     delayDestructionRef = StartCoroutine(DelayDestruction());
 
@@ -85,12 +86,16 @@ public class Destructible : MonoBehaviour
         }
         else if(other.tag.Equals("Player"))
         {
-            hp = 0;
+            if (!tag.Equals("Boss"))
+            {
+                hp = 0;
+            }
+
             if(delayDestructionRef == null)
             {
                 player?.Damage();
-                animator.SetTrigger("onEnemyDeath");
-                audioSource.Play();
+                animator?.SetTrigger("onEnemyDeath");
+                audioSource?.Play();
                 DisableMovement();
                 delayDestructionRef = StartCoroutine(DelayDestruction());
             }

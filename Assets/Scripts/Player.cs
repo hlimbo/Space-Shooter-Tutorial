@@ -141,34 +141,42 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && newFireTime < Time.time)
         {
             newFireTime = Time.time + fireDelay;
+
+            // Stack power-ups together if different types are picked up
             if(isTripleShotEnabled)
             {
                 TripleShot();
-                audioSource.PlayOneShot(laserFire);
             }
-            else if(isDoubleHelixShotEnabled)
+            
+            if(isDoubleHelixShotEnabled)
             {
                 DoubleHelixShot();
-                audioSource.PlayOneShot(laserFire);
             }
-            else if(isHomingLasersEnabled)
+            
+            if(isHomingLasersEnabled)
             {
                 HomingLasersShot();
-                audioSource.PlayOneShot(laserFire);
             }
-            else
+            
+            if (!isTripleShotEnabled && !isDoubleHelixShotEnabled && !isHomingLasersEnabled)
             {
                 if (currentAmmoCount > 0)
                 {
                     FireLaser();
                     --currentAmmoCount;
                     uiManager?.UpdateAmmoText(currentAmmoCount);
-                    audioSource.PlayOneShot(laserFire);
+
                 }
-                else
-                {
-                    audioSource.PlayOneShot(noAmmoSound);
-                }
+            }
+
+            // Sfx
+            if (isTripleShotEnabled || isDoubleHelixShotEnabled || isHomingLasersEnabled || currentAmmoCount > 0)
+            {
+                audioSource.PlayOneShot(laserFire);
+            }
+            else
+            {
+                audioSource.PlayOneShot(noAmmoSound);
             }
 
         }

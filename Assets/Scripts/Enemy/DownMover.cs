@@ -11,7 +11,6 @@ public class DownMover : MonoBehaviour, IMovable
     {
         if(enabled)
         {
-            // Vector3.up
             transform.Translate(transform.up * speed * deltaTime, Space.World);
         }
     }
