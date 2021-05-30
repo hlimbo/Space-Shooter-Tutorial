@@ -93,6 +93,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float attractSpeed = 5f;
 
+    private Animator animator;
+
     void Start()
     {
         spawnManager = FindObjectOfType<SpawnManager>();
@@ -130,6 +132,7 @@ public class Player : MonoBehaviour
         camWidth = camHeight * mainCamera.aspect;
 
         boxCollider = GetComponent<BoxCollider2D>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -285,6 +288,23 @@ public class Player : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
+        if (horizontalInput < 0f)
+        {
+            animator.SetBool("isTurningLeft", true);
+            animator.SetBool("isTurningRight", false);
+
+        }
+        else if (horizontalInput > 0f)
+        {
+            animator.SetBool("isTurningLeft", false);
+            animator.SetBool("isTurningRight", true);
+        }
+        else
+        {
+            animator.SetBool("isTurningLeft", false);
+            animator.SetBool("isTurningRight", false);
+        }
+
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0f).normalized;
         transform.Translate(direction * speed * currentBoostMultiplier * Time.deltaTime);
     }
@@ -295,11 +315,11 @@ public class Player : MonoBehaviour
         float minY = mainCamera.transform.position.y - (camHeight / 2f) + (boxCollider.size.y / 2f);
         if (transform.position.y < minY)
         {
-            transform.position = new Vector3(transform.position.x, minY, transform.position.y);
+            transform.position = new Vector3(transform.position.x, minY, transform.position.z);
         }
         else if (transform.position.y > maxY)
         {
-            transform.position = new Vector3(transform.position.x, maxY, transform.position.y);
+            transform.position = new Vector3(transform.position.x, maxY, transform.position.z);
         }
 
         // Left and right wrap-around
