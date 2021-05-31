@@ -80,7 +80,7 @@ public class Player : MonoBehaviour
 
     private BoxCollider2D boxCollider;
 
-    private bool isAttracting = false;
+    private bool isAttracting = true;
     [SerializeField]
     private float attractRadius = 5f;
     public float AttractRadius => attractRadius;
@@ -184,17 +184,17 @@ public class Player : MonoBehaviour
 
         }
     
-        if (Input.GetKey(KeyCode.C))
-        {
-            isAttracting = true;
-        }
-        else if(Input.GetKeyUp(KeyCode.C))
-        {
-            isAttracting = false;
-        }
+        //if (Input.GetKey(KeyCode.C))
+        //{
+        //    isAttracting = true;
+        //}
+        //else if(Input.GetKeyUp(KeyCode.C))
+        //{
+        //    isAttracting = false;
+        //}
     }
 
-    // add to power up set
+    // add to power up sets
     // if powerup does not exist in new list, remove from set
     // foreach item in set, check if power up is in
     private void FixedUpdate()
@@ -246,7 +246,15 @@ public class Player : MonoBehaviour
         else if (other.tag.Equals("EnemyLaser"))
         {
             Damage();
-            Destroy(other.gameObject);
+
+            if (other.transform.parent != null)
+            {
+                Destroy(other.transform.parent.gameObject);
+            }
+            else
+            {
+                Destroy(other.gameObject);
+            }
         }
     }
 
