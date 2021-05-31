@@ -5,13 +5,10 @@ using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour
 {
-    // handle to text
     [SerializeField]
     private Text scoreText;
     [SerializeField]
-    private Sprite[] liveSprites;
-    [SerializeField]
-    private Image livesImage;
+    private Text livesText;
     [SerializeField]
     private Text gameOverText;
     [SerializeField]
@@ -20,8 +17,6 @@ public class UiManager : MonoBehaviour
     private Text ammoText;
     [SerializeField]
     private Image thrustFillImg;
-    [SerializeField]
-    private Text maxAmmoText;
     [SerializeField]
     private Text waveText;
 
@@ -40,13 +35,12 @@ public class UiManager : MonoBehaviour
 
     public void UpdateLives(int currentLives)
     {
-        // Don't update UI if out of range
-        if(liveSprites.Length < currentLives || currentLives < 0)
+        if(currentLives < 0)
         {
             return;
         }
 
-        livesImage.sprite = liveSprites[currentLives];
+        livesText.text = $"x{currentLives}";
     }
 
     public void ToggleGameOver(bool toggle)
@@ -83,12 +77,7 @@ public class UiManager : MonoBehaviour
 
     public void UpdateAmmoText(int ammoCount)
     {
-        ammoText.text = $"{ammoCount}";
-    }
-
-    public void SetMaxAmmoText(int maxAmmo)
-    {
-        maxAmmoText.text = maxAmmo.ToString();
+        ammoText.text = $"x{ammoCount}";
     }
 
     public void SetThrustFill(float fillAmount)

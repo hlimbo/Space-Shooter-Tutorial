@@ -107,7 +107,6 @@ public class Player : MonoBehaviour
         uiManager?.UpdateScore(score);
         currentAmmoCount = startingAmmoCount;
         uiManager?.UpdateAmmoText(currentAmmoCount);
-        uiManager?.SetMaxAmmoText(startingAmmoCount);
         uiManager?.UpdateLives(lives);
 
         if(uiManager == null)
