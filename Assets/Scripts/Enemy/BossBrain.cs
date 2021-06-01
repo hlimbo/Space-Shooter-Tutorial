@@ -7,10 +7,9 @@ public class BossBrain : BaseEnemyBrain
 {
     private IMovable movable;
     private IShootable[] shootables;
-    // TODO: separate HP component from Destructible component
-    // have hp component as dependency of destructible component
-    // create a different component responsible for destroying overall boss
-    private Destructible[] destructibles;
+    private Collider2D[] colliders;
+    private Animator animator;
+    private AudioSource audioSource;
 
     [SerializeField]
     private float shotFrequency = 4f;
@@ -19,21 +18,19 @@ public class BossBrain : BaseEnemyBrain
     [SerializeField]
     private Slider hpSlider;
 
-    private int totalHp = 0;
+    [SerializeField]
+    private int totalHp = 75;
     private int currentHp = 0;
+
+    private Coroutine damageRoutineRef;
+    private Renderer[] renderers;
+    [SerializeField]
+    private Material dmgMaterial;
 
     public float HpRatio
     {
         get
         {
-            int newCurrentHp = 0;
-            foreach (var destructible in destructibles)
-            {
-                newCurrentHp += destructible.Hp;
-            }
-
-            currentHp = newCurrentHp;
-
             if (totalHp <= 0)
             {
                 return 0f;
@@ -45,22 +42,22 @@ public class BossBrain : BaseEnemyBrain
 
     private void Awake()
     {
-        destructibles = GetComponentsInChildren<Destructible>();
-        foreach(var destructible in destructibles)
-        {
-            totalHp += destructible.Hp;
-        }
-        currentHp = totalHp;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
         movable = GetComponent<IMovable>();
         shootables = GetComponentsInChildren<IShootable>();
+        renderers = GetComponentsInChildren<Renderer>();
+        colliders = GetComponentsInChildren<Collider2D>();
+        animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+
+        currentHp = totalHp;
+        hpSlider = GameObject.Find("BossHp")?.GetComponent<Slider>();
     }
 
-    // Update is called once per frame
+    private void Start()
+    {
+        lastShotTime = Time.time;
+    }
+
     void Update()
     {
         movable?.Move(Time.deltaTime);
@@ -73,11 +70,86 @@ public class BossBrain : BaseEnemyBrain
             lastShotTime = Time.time;
         }
 
-        // Update HP UI
-        if (hpSlider != null)
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag.Equals("Laser"))
         {
-            hpSlider.value = HpRatio;
+            if (currentHp > 0)
+            {
+                Destroy(other.gameObject);
+
+                --currentHp;
+                // Update HP UI
+                if (hpSlider != null)
+                {
+                    hpSlider.value = HpRatio;
+                }
+
+                if (damageRoutineRef == null)
+                {
+                    damageRoutineRef = StartCoroutine(DamageEffectRoutine());
+                }
+
+                if (currentHp <= 0)
+                {
+                    ToggleColliders(false);
+                    (movable as MonoBehaviour).enabled = false;
+                    animator?.SetTrigger("isBossDead");
+                    audioSource?.Play();
+                    StartCoroutine(DelayDestruction());
+                }
+            }
+        }
+    }
+
+    IEnumerator DamageEffectRoutine()
+    {
+        var originalMats = new Material[renderers.Length];
+        for(int i = 0;i < renderers.Length; ++i)
+        {
+            originalMats[i] = renderers[i].material;
         }
 
+        SetMat(dmgMaterial);
+        yield return new WaitForSeconds(0.15f);
+        SetMats(renderers, originalMats);
+        yield return new WaitForSeconds(0.15f);
+        SetMat(dmgMaterial);
+        yield return new WaitForSeconds(0.15f);
+        SetMats(renderers, originalMats);
+
+        damageRoutineRef = null;
+    }
+
+    private void SetMat(Material mat)
+    {
+        for (int i = 0;i < renderers.Length; ++i)
+        {
+            renderers[i].material = mat;
+        }
+    }
+
+    private void SetMats(Renderer[] renderers, Material[] mats)
+    {
+        for(int i = 0;i < renderers.Length; ++i)
+        {
+            renderers[i].material = mats[i];
+        }
+    }
+
+    private void ToggleColliders(bool toggle)
+    {
+        foreach(var collider in colliders)
+        {
+            collider.enabled = toggle;
+        }
+    }
+
+    IEnumerator DelayDestruction()
+    {
+        yield return null;
+        Destroy(gameObject, 2f);
     }
 }

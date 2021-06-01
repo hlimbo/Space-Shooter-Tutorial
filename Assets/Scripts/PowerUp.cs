@@ -22,10 +22,10 @@ public class PowerUp : MonoBehaviour
     private static Dictionary<PowerUpType, int> weightTable = new Dictionary<PowerUpType, int>()
     {
         { PowerUpType.TRIPLE_SHOT,  90 },
-        { PowerUpType.SPEED_BOOST,  15 },
+        { PowerUpType.SPEED_BOOST,  60 },
         { PowerUpType.SHIELD, 30 },
         { PowerUpType.AMMO, 105 },
-        { PowerUpType.HEALTH, 60 },
+        { PowerUpType.HEALTH, 15 },
         { PowerUpType.DOUBLE_HELIX, 60 },
     };
 

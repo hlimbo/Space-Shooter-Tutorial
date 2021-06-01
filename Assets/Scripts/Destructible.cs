@@ -1,7 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+ 
 public class Destructible : MonoBehaviour
 {
     private Player player;
@@ -15,20 +14,12 @@ public class Destructible : MonoBehaviour
 
     private IMovable[] movables;
 
-    [SerializeField]
-    private int hp = 1;
-    public int Hp => hp;
-
     public bool WillBeDestroyed => delayDestructionRef != null;
 
     // Other 3d enemy asset if available
     private GameObject childObject;
 
-    private SpriteRenderer spriteRenderer;
-    [SerializeField]
-    private Material dmgMaterial;
-
-    private Coroutine damageRoutineRef;
+    private Hurtable hurtable;
 
     private void Awake()
     {
@@ -46,16 +37,16 @@ public class Destructible : MonoBehaviour
         }
 
         movables = GetComponentsInParent<IMovable>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        hurtable = GetComponent<Hurtable>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag.Equals("Laser"))
         {
-            --hp;
             Destroy(other.gameObject);
-            if (hp <= 0)
+
+            if (hurtable == null || hurtable?.Hp <= 0)
             {
                 if (delayDestructionRef == null)
                 {
@@ -76,21 +67,9 @@ public class Destructible : MonoBehaviour
                     }
                 }
             }
-            else
-            {
-                if (damageRoutineRef == null)
-                {
-                    damageRoutineRef = StartCoroutine(DamageEffectRoutine());
-                }
-            }
         }
         else if(other.tag.Equals("Player"))
         {
-            if (!tag.Equals("Boss"))
-            {
-                hp = 0;
-            }
-
             if(delayDestructionRef == null)
             {
                 player?.Damage();
@@ -125,21 +104,6 @@ public class Destructible : MonoBehaviour
         {
             Destroy(transform.parent.gameObject, animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
         }
-    }
-
-    IEnumerator DamageEffectRoutine ()
-    {
-        var originalMat = spriteRenderer.material;
-
-        spriteRenderer.material = dmgMaterial;
-        yield return new WaitForSeconds(0.15f);
-        spriteRenderer.material = originalMat;
-        yield return new WaitForSeconds(0.15f);
-        spriteRenderer.material = dmgMaterial;
-        yield return new WaitForSeconds(0.15f);
-        spriteRenderer.material = originalMat;
-
-        damageRoutineRef = null;
     }
 
     private void DisableMovement ()

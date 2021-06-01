@@ -28,8 +28,6 @@ public class Player : MonoBehaviour
     private float newFireTime = -1f;
 
     [SerializeField]
-    private int maxLives = 3;
-    [SerializeField]
     private int lives;
 
     [SerializeField]
@@ -95,6 +93,12 @@ public class Player : MonoBehaviour
 
     private Animator animator;
 
+    [SerializeField]
+    private float invincibilityDuration = 3f;
+
+    private SpriteRenderer spriteRenderer;
+    private Coroutine fadeInOutRoutine;
+
     void Start()
     {
         spawnManager = FindObjectOfType<SpawnManager>();
@@ -132,6 +136,7 @@ public class Player : MonoBehaviour
 
         boxCollider = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -381,9 +386,21 @@ public class Player : MonoBehaviour
         // Delete Player if no more lives left
         if (lives < 1)
         {
+            boxCollider.enabled = false;
+            ToggleEngineDamage(false);
+            ToggleEngineDamage(false);
             spawnManager?.OnPlayerDeath();
             uiManager?.ToggleGameOver(true);
-            Destroy(gameObject);
+            animator?.SetTrigger("destroyed");
+            Destroy(gameObject, 0.35f);
+        }
+        else
+        {
+            // Start Invinicibility frames
+            if (fadeInOutRoutine == null)
+            {
+                fadeInOutRoutine = StartCoroutine(FadeInOutRoutine());
+            }
         }
     }
 
@@ -443,27 +460,15 @@ public class Player : MonoBehaviour
 
     public void AddAmmo(int ammo)
     {
-        if(currentAmmoCount + ammo < startingAmmoCount)
-        {
-            currentAmmoCount += ammo;
-        }
-        else if(Mathf.Abs(startingAmmoCount - currentAmmoCount) < startingAmmoCount)
-        {
-            // give remaining bullets instead of fixed amount
-            currentAmmoCount += Mathf.Abs(startingAmmoCount - currentAmmoCount);
-        }
-
+        currentAmmoCount += ammo;
         uiManager?.UpdateAmmoText(currentAmmoCount);
     }
 
     public void IncrementLives()
     {
-        if(lives + 1 <= maxLives)
-        {
-            ++lives;
-            uiManager?.UpdateLives(lives);
-            ToggleEngineDamage(false);
-        }
+        ++lives;
+        uiManager?.UpdateLives(lives);
+        ToggleEngineDamage(false);
     }
 
     // Used to apply damage / repair vfx
@@ -478,5 +483,24 @@ public class Player : MonoBehaviour
         }
 
         engines[engineToDamageIndex].SetActive(toggle);
+    }
+
+    IEnumerator FadeInOutRoutine ()
+    {
+        float startTime = Time.time;
+        Color originalColor = spriteRenderer.color;
+        boxCollider.enabled = false;
+        
+        while (Time.time - startTime < invincibilityDuration)
+        {
+            spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.25f);
+            yield return new WaitForSeconds(0.15f);
+            spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 1f);
+            yield return new WaitForSeconds(0.15f);
+        }
+
+        spriteRenderer.color = originalColor;
+        boxCollider.enabled = true;
+        fadeInOutRoutine = null;
     }
 }
