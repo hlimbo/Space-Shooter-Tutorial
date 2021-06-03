@@ -46,7 +46,7 @@ public class Destructible : MonoBehaviour
         {
             Destroy(other.gameObject);
 
-            if (hurtable == null || hurtable?.Hp <= 0)
+            if (hurtable == null || hurtable?.Hp < 2)
             {
                 if (delayDestructionRef == null)
                 {
@@ -59,8 +59,8 @@ public class Destructible : MonoBehaviour
 
                     if (spawnManager != null)
                     {
-                        // 40 percent chance an enemy drops a random power-up
-                        if (Random.value <= 0.4f)
+                        // 25 percent chance an enemy drops a random power-up
+                        if (Random.value <= 0.25f)
                         {
                             spawnManager.SpawnRandomPowerup(transform.position);
                         }
@@ -85,7 +85,6 @@ public class Destructible : MonoBehaviour
     {
         if(tag.Equals("Enemy"))
         {
-            Debug.Log("Decrementing Enemy Count: " + name);
             waveManager?.DecrementEnemyCount();
         }
     }
@@ -102,7 +101,10 @@ public class Destructible : MonoBehaviour
 
         if (transform.parent != null)
         {
-            Destroy(transform.parent.gameObject, animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
+            if (transform.parent.GetComponent<Swarm>() == null)
+            {
+                Destroy(transform.parent.gameObject, animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
+            }
         }
     }
 

@@ -5,7 +5,9 @@ public class Hurtable : MonoBehaviour
 {
     [SerializeField]
     private int hp = 1;
+    private int initialHp;
     public int Hp => hp;
+    public int InitialHp => initialHp;
 
     private SpriteRenderer spriteRenderer;
     [SerializeField]
@@ -16,6 +18,7 @@ public class Hurtable : MonoBehaviour
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        initialHp = hp;
     }
 
     IEnumerator DamageEffectRoutine()

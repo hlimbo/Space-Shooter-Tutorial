@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Asteroid : MonoBehaviour
 {
@@ -9,16 +10,20 @@ public class Asteroid : MonoBehaviour
     private float rotateSpeed = 30f;
 
     private Animator animator;
+    private WaveManager waveManager;
     private SpawnManager spawnManager;
 
     private Coroutine delayDestructionRef;
-
     private AudioSource audioSource;
+
+    [SerializeField]
+    private Text instructionText;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        waveManager = FindObjectOfType<WaveManager>();
         spawnManager = FindObjectOfType<SpawnManager>();
     }
 
@@ -42,6 +47,7 @@ public class Asteroid : MonoBehaviour
         {
             if(delayDestructionRef == null)
             {
+                instructionText.gameObject.SetActive(false);
                 animator.SetTrigger("onDestroyAsteroid");
                 delayDestructionRef = StartCoroutine(DelayDestruction(other));
                 audioSource.Play();
@@ -55,6 +61,7 @@ public class Asteroid : MonoBehaviour
         // so that the animator component can grab the explosion animation clip
         yield return null;
         var currentClipInfo = animator.GetCurrentAnimatorClipInfo(0);
+        waveManager?.StartGame();
         spawnManager?.OnBeginSpawning(currentClipInfo[0].clip.length);
         Destroy(gameObject, currentClipInfo[0].clip.length);
         Destroy(other.gameObject);

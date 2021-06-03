@@ -27,6 +27,8 @@ public class BossBrain : BaseEnemyBrain
     [SerializeField]
     private Material dmgMaterial;
 
+    private UiManager uiManager;
+
     public float HpRatio
     {
         get
@@ -49,13 +51,14 @@ public class BossBrain : BaseEnemyBrain
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
 
-        currentHp = totalHp;
-        hpSlider = GameObject.Find("BossHp")?.GetComponent<Slider>();
+        uiManager = FindObjectOfType<UiManager>();
     }
 
     private void Start()
     {
         lastShotTime = Time.time;
+        currentHp = totalHp;
+        hpSlider = GameObject.Find("BossHp")?.GetComponent<Slider>();
     }
 
     void Update()
@@ -99,6 +102,7 @@ public class BossBrain : BaseEnemyBrain
                     animator?.SetTrigger("isBossDead");
                     audioSource?.Play();
                     StartCoroutine(DelayDestruction());
+                    uiManager?.DisplayWinnerText(true);
                 }
             }
         }

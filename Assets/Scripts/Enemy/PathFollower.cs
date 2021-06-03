@@ -32,7 +32,7 @@ public class PathFollower : MonoBehaviour, IMovable
                 Vector3 position = spline.GetPoint(progress);
 
                 // Set this game-object's local up axis (green axis) to point towards the direction its traveling on the spline
-                transform.up = transform.position - position;
+                transform.up = (transform.position - position).normalized;
                 transform.position = position;
             }
         }

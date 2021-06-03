@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
@@ -17,6 +16,10 @@ public class WaveManager : MonoBehaviour
     private int spawnIndex = 0;
 
     private int activeEnemyCount = 0;
+
+    private GameObject bossUi;
+
+
     public void DecrementEnemyCount ()
     {
         if(activeEnemyCount > 0)
@@ -30,11 +33,29 @@ public class WaveManager : MonoBehaviour
     private void Awake()
     {
         uiManager = FindObjectOfType<UiManager>();
+        bossUi = GameObject.Find("BossHp");
+        bossUi.SetActive(false);
     }
 
-    private void Start()
+    public void StartGame ()
     {
         StartCoroutine(StartWavesRoutine());
+    }
+
+    private void CalculateActiveEnemyCount (Wave wave)
+    {
+        activeEnemyCount = 0;
+        for (int i = 0;i < wave.enemyPrefabs.Length; ++i)
+        {
+            if (wave.enemyPrefabs[i].GetComponent<BaseEnemyBrain>() != null)
+            {
+                ++activeEnemyCount;
+            }
+            else if(wave.enemyPrefabs[i].GetComponent<Swarm>() != null)
+            {
+                activeEnemyCount += wave.enemyPrefabs[i].GetComponent<Swarm>().SwarmCount;
+            }
+        }
     }
 
     private IEnumerator StartWavesRoutine()
@@ -42,7 +63,7 @@ public class WaveManager : MonoBehaviour
         while(waveIndex < waves.Length)
         {
             var currentWave = waves[waveIndex];
-            activeEnemyCount += currentWave.enemyPrefabs.Length;
+            CalculateActiveEnemyCount(currentWave);
 
             uiManager.ToggleWaveTextVisibility(true);
             uiManager.SetWaveText(currentWave.name);
@@ -65,6 +86,15 @@ public class WaveManager : MonoBehaviour
         {
             Wave currentWave = waves[waveIndex];
 
+            if (currentWave.name.Contains("Boss"))
+            {
+                bossUi.SetActive(true);
+            }
+            else
+            {
+                bossUi.SetActive(false);
+            }
+
             // Spawn Paths
             GameObject possiblePaths = null;
             if(currentWave.pathContainer != null)
@@ -76,6 +106,7 @@ public class WaveManager : MonoBehaviour
             {
                 var enemyPrefab = currentWave.enemyPrefabs[spawnIndex];
                 Instantiate(enemyPrefab);
+
                 ++spawnIndex;
                 yield return new WaitForSeconds(spawnDelayInSeconds);
             }

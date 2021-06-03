@@ -98,6 +98,7 @@ public class Player : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     private Coroutine fadeInOutRoutine;
+    private bool isInvincible = false;
 
     void Start()
     {
@@ -187,15 +188,6 @@ public class Player : MonoBehaviour
             }
 
         }
-    
-        //if (Input.GetKey(KeyCode.C))
-        //{
-        //    isAttracting = true;
-        //}
-        //else if(Input.GetKeyUp(KeyCode.C))
-        //{
-        //    isAttracting = false;
-        //}
     }
 
     // add to power up sets
@@ -371,6 +363,11 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
+        if (isInvincible)
+        {
+            return;
+        }
+
         if(isShieldEnabled)
         {
             isShieldEnabled = false;
@@ -391,7 +388,8 @@ public class Player : MonoBehaviour
             ToggleEngineDamage(false);
             spawnManager?.OnPlayerDeath();
             uiManager?.ToggleGameOver(true);
-            animator?.SetTrigger("destroyed");
+
+            animator?.SetBool("isDestroyed", true);
             Destroy(gameObject, 0.35f);
         }
         else
@@ -412,7 +410,7 @@ public class Player : MonoBehaviour
 
     IEnumerator TripleShotPowerDownRoutine()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(8f);
         isTripleShotEnabled = false;
     }
 
@@ -424,7 +422,7 @@ public class Player : MonoBehaviour
 
     IEnumerator DoubleHelixPowerDownRoutine()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(10f);
         isDoubleHelixShotEnabled = false;
     }
 
@@ -450,6 +448,18 @@ public class Player : MonoBehaviour
     {
         isShieldEnabled = true;
         shield.SetActive(isShieldEnabled);
+    }
+
+    public void HomingLaserActive()
+    {
+        isHomingLasersEnabled = true;
+        StartCoroutine(HomingLasersPowerdown());
+    }
+
+    IEnumerator HomingLasersPowerdown()
+    {
+        yield return new WaitForSeconds(20f);
+        isHomingLasersEnabled = false;
     }
 
     public void AddScore(int points)
@@ -489,8 +499,8 @@ public class Player : MonoBehaviour
     {
         float startTime = Time.time;
         Color originalColor = spriteRenderer.color;
-        boxCollider.enabled = false;
-        
+
+        isInvincible = true;
         while (Time.time - startTime < invincibilityDuration)
         {
             spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.25f);
@@ -500,7 +510,7 @@ public class Player : MonoBehaviour
         }
 
         spriteRenderer.color = originalColor;
-        boxCollider.enabled = true;
+        isInvincible = false;
         fadeInOutRoutine = null;
     }
 }

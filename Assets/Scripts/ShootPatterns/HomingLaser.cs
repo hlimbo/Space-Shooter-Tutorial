@@ -11,13 +11,15 @@ public class HomingLaser : MonoBehaviour
     {
         mover = GetComponent<HomingMover>();
         enemies = FindObjectsOfType<BaseEnemyBrain>();
-
         SelectClosestTarget(); 
     }
 
     private void Update()
     {
-        mover?.Move(Time.deltaTime);
+        if (mover != null)
+        {
+            mover.Move(Time.deltaTime);
+        }
     }
 
     private void SelectClosestTarget ()

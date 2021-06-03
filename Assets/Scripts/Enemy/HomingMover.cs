@@ -13,9 +13,14 @@ public class HomingMover : MonoBehaviour, IMovable
     private GameObject target;
     private Rigidbody2D rb;
 
+    private Vector3 direction;
+
+    public GameObject Target => target;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        direction = transform.up;
     }
 
     public void SetTarget (GameObject target)
@@ -28,7 +33,7 @@ public class HomingMover : MonoBehaviour, IMovable
     {
         if (enabled && target != null)
         {
-            Vector3 direction = (target.transform.position - transform.position).normalized;
+            direction = (target.transform.position - transform.position).normalized;
 
             // Why this code doesn't work ~ explain in an article TODO
             // This function causes ship to rotate towards a specific direction and will cause the ship to move away from player on rotation
@@ -39,6 +44,12 @@ public class HomingMover : MonoBehaviour, IMovable
             float rotateAmount = Vector3.Cross(direction, transform.up).z;
             rb.angularVelocity = -rotateAmount * rotateSpeed;
             transform.Translate(direction * speed * deltaTime, Space.World);
+        }
+
+        // Destroy game object if target becomes null
+        if (target == null)
+        {
+            Destroy(gameObject);
         }
     }
 

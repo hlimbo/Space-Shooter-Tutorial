@@ -12,6 +12,13 @@ public class WayPointMover : MonoBehaviour, IMovable
 
     private Transform targetWaypoint;
     private int waypointIndex = 0;
+    
+    void Awake ()
+    {
+        var waypointsGO = GameObject.Find("Waypoints");
+        waypoints = waypointsGO.GetComponentsInChildren<Transform>();
+    }
+
 
     void Start ()
     {

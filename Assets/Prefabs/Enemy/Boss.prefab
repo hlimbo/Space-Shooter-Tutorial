@@ -68,7 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shotFrequency: 2
   hpSlider: {fileID: 0}
-  totalHp: 75
+  totalHp: 150
   dmgMaterial: {fileID: 2100000, guid: 04e055516f754bd41b9d66585704ce82, type: 2}
 --- !u!50 &8208471614286769653
 Rigidbody2D:
@@ -355,11 +355,11 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 5566440970268365884, guid: 3578e577ceb568145bb6970330113ca0, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.16710043, a: 1}
+  m_Color: {r: 0.22574759, g: 0.8396226, b: 0.5112332, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.15}
+  m_Size: {x: 0.08, y: 0.05}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -383,7 +383,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1.57, y: 3.07}
-    newSize: {x: 0.16, y: 0.15}
+    newSize: {x: 0.08, y: 0.05}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -541,11 +541,11 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 8462298585504898196, guid: 3578e577ceb568145bb6970330113ca0, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.16862774, a: 1}
+  m_Color: {r: 0.22574759, g: 0.8396226, b: 0.5112332, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.2, y: 1.21}
+  m_Size: {x: 0.08, y: 0.05}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -569,7 +569,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1.2, y: 1.21}
-    newSize: {x: 1.2, y: 1.21}
+    newSize: {x: 0.08, y: 0.05}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -651,11 +651,11 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 8462298585504898196, guid: 3578e577ceb568145bb6970330113ca0, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.16862774, a: 1}
+  m_Color: {r: 0.22574759, g: 0.8396226, b: 0.5112332, a: 1}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.2, y: 1.21}
+  m_Size: {x: 0.08, y: 0.05}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -679,7 +679,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1.2, y: 1.21}
-    newSize: {x: 1.2, y: 1.21}
+    newSize: {x: 0.08, y: 0.05}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0

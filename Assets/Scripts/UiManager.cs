@@ -19,6 +19,8 @@ public class UiManager : MonoBehaviour
     private Image thrustFillImg;
     [SerializeField]
     private Text waveText;
+    [SerializeField]
+    private Text winText;
 
     private GameManager gameManager;
     private Coroutine flickerRef;
@@ -52,7 +54,7 @@ public class UiManager : MonoBehaviour
         {
             if(flickerRef == null)
             {
-                flickerRef = StartCoroutine(FlickerGameOverText());
+                flickerRef = StartCoroutine(FlickerText(gameOverText));
             }
         }
         else
@@ -64,13 +66,13 @@ public class UiManager : MonoBehaviour
         }
     }
 
-    private IEnumerator FlickerGameOverText()
+    private IEnumerator FlickerText(Text text)
     {
         while (true)
         {
-            gameOverText.enabled = true;
+            text.enabled = true;
             yield return new WaitForSeconds(0.5f);
-            gameOverText.enabled = false;
+            text.enabled = false;
             yield return new WaitForSeconds(0.5f);
         }
     }
@@ -98,6 +100,30 @@ public class UiManager : MonoBehaviour
         if(waveText != null)
         {
             waveText.enabled = toggle;
+        }
+    }
+
+    public void DisplayWinnerText(bool toggle)
+    {
+        restartText.gameObject.SetActive(toggle);
+        winText.gameObject.SetActive(toggle);
+        gameManager?.ToggleGameOver(toggle);
+
+        if (toggle)
+        {
+            if (flickerRef != null)
+            {
+                StopCoroutine(flickerRef);
+            }
+            flickerRef = StartCoroutine(FlickerText(winText));
+        }
+        else
+        {
+            if (flickerRef != null)
+            {
+                StopCoroutine(flickerRef);
+                flickerRef = null;
+            }
         }
     }
 }

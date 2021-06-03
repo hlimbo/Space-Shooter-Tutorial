@@ -14,6 +14,7 @@ public class PowerUp : MonoBehaviour
         AMMO,
         HEALTH,
         DOUBLE_HELIX,
+        HOMING_LASER,
     };
 
     private static PowerUpType[] powerUpTypes = Enum.GetValues(typeof(PowerUpType))
@@ -22,11 +23,12 @@ public class PowerUp : MonoBehaviour
     private static Dictionary<PowerUpType, int> weightTable = new Dictionary<PowerUpType, int>()
     {
         { PowerUpType.TRIPLE_SHOT,  90 },
-        { PowerUpType.SPEED_BOOST,  60 },
-        { PowerUpType.SHIELD, 30 },
-        { PowerUpType.AMMO, 105 },
-        { PowerUpType.HEALTH, 15 },
-        { PowerUpType.DOUBLE_HELIX, 60 },
+        { PowerUpType.SPEED_BOOST,  45 },
+        { PowerUpType.SHIELD, 60 },
+        { PowerUpType.AMMO, 125 },
+        { PowerUpType.HEALTH, 20 },
+        { PowerUpType.DOUBLE_HELIX, 30 },
+        { PowerUpType.HOMING_LASER, 10 },
     };
 
     public static class Extensions
@@ -74,12 +76,6 @@ public class PowerUp : MonoBehaviour
         {
             transform.Translate(Vector3.down * speed * Time.deltaTime);
         }
-        
-        // If below screen
-        if(transform.position.y < -5f)
-        {
-            Destroy(gameObject);
-        }
     }
 
     public void MoveTowards (Vector3 otherPosition, float attractSpeed)
@@ -114,6 +110,9 @@ public class PowerUp : MonoBehaviour
                         break;
                     case PowerUpType.DOUBLE_HELIX:
                         player.DoubleHelixActive();
+                        break;
+                    case PowerUpType.HOMING_LASER:
+                        player.HomingLaserActive();
                         break;
                 }
             }

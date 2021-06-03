@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shotFrequency: 2
-  maxShotCount: 1
+  maxShotCount: 3
   enableShooting: 1
 --- !u!114 &6954870286195674241
 MonoBehaviour:
@@ -339,7 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a586b31687ad8c24c932ba0601140fc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2.5
+  speed: 2
 --- !u!114 &1547308867040017855
 MonoBehaviour:
   m_ObjectHideFlags: 0

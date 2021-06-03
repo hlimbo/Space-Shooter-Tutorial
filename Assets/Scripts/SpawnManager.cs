@@ -2,34 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Consider throwing this manager class out when building a new 
-// spawn manager for power-ups with weights applied
-
 public class SpawnManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject spawnPrefab;
-    [SerializeField]
-    private float spawnDelay = 5f;
-    [SerializeField]
-    private GameObject enemyContainer;
+
     [SerializeField]
     private GameObject[] powerups;
+    [SerializeField]
+    private float spawnDelay = 10f;
 
     private bool stopSpawning = false;
 
+    private Camera mainCamera;
+    [SerializeField]
+    private float powerupYOffset = 2f;
+
     private void Start()
     {
-        StartCoroutine(SpawnPowerupRoutine());
+        mainCamera = FindObjectOfType<Camera>();
     }
 
     private void Update()
     {
         // Toggle this script on/off
     }
-
-
-    // Don't spawn power-ups periodically, only give a chance to spawn when an enemy is destroyed
 
     public void OnBeginSpawning(float secondsDelay)
     {
@@ -41,7 +36,6 @@ public class SpawnManager : MonoBehaviour
     IEnumerator BeginSpawningRoutine(float secondsDelay)
     {
         yield return new WaitForSeconds(secondsDelay);
-        StartCoroutine(SpawnEnemyRoutine());
         StartCoroutine(SpawnPowerupRoutine());
     }
 
@@ -49,26 +43,19 @@ public class SpawnManager : MonoBehaviour
     {
         StopAllCoroutines();
     }
-
-    IEnumerator SpawnEnemyRoutine()
-    {
-        while(!stopSpawning)
-        {
-            Vector3 spawnPosition = new Vector3(RandomXPosition(), 6.5f, 0f);
-            GameObject enemy = Instantiate(spawnPrefab, spawnPosition, Quaternion.identity);
-            enemy.transform.SetParent(enemyContainer.transform);
-            yield return new WaitForSeconds(spawnDelay);
-        }
-    }
-
     IEnumerator SpawnPowerupRoutine()
     {
         while(!stopSpawning)
         {
-            int randomDelay = Random.Range(3, 7);
-            yield return new WaitForSeconds(randomDelay);
-            Vector3 spawnPosition = new Vector3(RandomXPosition(), 6.5f, 0f);
-            SpawnRandomPowerup(spawnPosition);
+            float spawnHeight = mainCamera.transform.position.y + mainCamera.orthographicSize + powerupYOffset;
+            yield return new WaitForSeconds(spawnDelay);
+            Vector3 spawnPosition = new Vector3(RandomXPosition(), spawnHeight, 0f);
+            // 90 percent chance a power-up will spawn from the sky
+            //if (Random.value <= 0.9f)
+            //{
+                SpawnRandomPowerup(spawnPosition);
+            //}
+            
         }
     }
 
@@ -79,7 +66,12 @@ public class SpawnManager : MonoBehaviour
 
     private float RandomXPosition()
     {
-        return Random.Range(-9f, 9f);
+        float camHeight = 2f * mainCamera.orthographicSize;
+        float camWidth = camHeight * mainCamera.aspect;
+
+        float minX = mainCamera.transform.position.x - (camWidth / 2f);
+        float maxX = mainCamera.transform.position.x + (camWidth / 2f);
+        return Random.Range(minX, maxX);
     }
 
     public void SpawnRandomPowerup (Vector3 spawnPosition)
