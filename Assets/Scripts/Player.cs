@@ -42,6 +42,25 @@ public class Player : MonoBehaviour
     private bool isHomingLasersEnabled = false;
 
     [SerializeField]
+    private float initialTripleShotDuration = 8f;
+    [SerializeField]
+    private float initialDoubleHelixShotDuration = 10f;
+    [SerializeField]
+    private float initialHomingLasersDuration = 20f;
+
+    // Number of seconds to extend power up duration by while powerup still active
+    [SerializeField]
+    private float tripleShotExtendDelta = 1f;
+    [SerializeField]
+    private float doubleHelixShotExtendDelta = 1f;
+    [SerializeField]
+    private float homingLasersExtendDelta = 4f;
+
+    private float currentTripleShotDuration;
+    private float currentDoubleHelixShotDuration;
+    private float currentHomingLasersDuration;
+
+    [SerializeField]
     private GameObject[] engines;
 
     private GameObject shield;
@@ -404,25 +423,51 @@ public class Player : MonoBehaviour
 
     public void TripleShotActive()
     {
-        isTripleShotEnabled = true;
-        StartCoroutine(TripleShotPowerDownRoutine());
+        if(!isTripleShotEnabled)
+        {
+            isTripleShotEnabled = true;
+            currentTripleShotDuration = initialTripleShotDuration;
+            StartCoroutine(TripleShotPowerDownRoutine());
+        }
+        else
+        {
+            // extend powerup duration
+            currentTripleShotDuration += tripleShotExtendDelta;
+        }
     }
 
     IEnumerator TripleShotPowerDownRoutine()
     {
-        yield return new WaitForSeconds(8f);
+        float startTime = Time.time;
+        while (Time.time - startTime < currentTripleShotDuration)
+        {
+            yield return new WaitForSeconds(1f);
+        }
         isTripleShotEnabled = false;
     }
 
     public void DoubleHelixActive()
     {
-        isDoubleHelixShotEnabled = true;
-        StartCoroutine(DoubleHelixPowerDownRoutine());
+        if (!isDoubleHelixShotEnabled)
+        {
+            isDoubleHelixShotEnabled = true;
+            currentDoubleHelixShotDuration = initialDoubleHelixShotDuration;
+            StartCoroutine(DoubleHelixPowerDownRoutine());
+        }
+        else
+        {
+            // extend powerup duration
+            currentDoubleHelixShotDuration += doubleHelixShotExtendDelta;
+        }
     }
 
     IEnumerator DoubleHelixPowerDownRoutine()
     {
-        yield return new WaitForSeconds(10f);
+        float startTime = Time.time;
+        while (Time.time - startTime < currentDoubleHelixShotDuration)
+        {
+            yield return new WaitForSeconds(1f);
+        }
         isDoubleHelixShotEnabled = false;
     }
 
@@ -446,19 +491,35 @@ public class Player : MonoBehaviour
 
     public void ShieldActive()
     {
-        isShieldEnabled = true;
-        shield.SetActive(isShieldEnabled);
+        if (!isShieldEnabled)
+        {
+            isShieldEnabled = true;
+            shield.SetActive(isShieldEnabled);
+        }
     }
 
     public void HomingLaserActive()
     {
-        isHomingLasersEnabled = true;
-        StartCoroutine(HomingLasersPowerdown());
+        if (!isHomingLasersEnabled)
+        {
+            isHomingLasersEnabled = true;
+            currentHomingLasersDuration = initialHomingLasersDuration;
+            StartCoroutine(HomingLasersPowerdown());
+        }
+        else
+        {
+            // extend powerup duration
+            currentHomingLasersDuration += homingLasersExtendDelta;
+        }
     }
 
     IEnumerator HomingLasersPowerdown()
     {
-        yield return new WaitForSeconds(20f);
+        float startTime = Time.time;
+        while (Time.time - startTime < currentHomingLasersDuration)
+        {
+            yield return new WaitForSeconds(1f);
+        }
         isHomingLasersEnabled = false;
     }
 

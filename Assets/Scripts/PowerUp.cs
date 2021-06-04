@@ -25,7 +25,7 @@ public class PowerUp : MonoBehaviour
         { PowerUpType.TRIPLE_SHOT,  90 },
         { PowerUpType.SPEED_BOOST,  45 },
         { PowerUpType.SHIELD, 60 },
-        { PowerUpType.AMMO, 124 },
+        { PowerUpType.AMMO, 125 },
         { PowerUpType.HEALTH, 20 },
         { PowerUpType.DOUBLE_HELIX, 30 },
         { PowerUpType.HOMING_LASER,  10 },

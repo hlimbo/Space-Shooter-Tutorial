@@ -2594,6 +2594,12 @@ MonoBehaviour:
   isShieldEnabled: 0
   isDoubleHelixShotEnabled: 0
   isHomingLasersEnabled: 0
+  initialTripleShotDuration: 8
+  initialDoubleHelixShotDuration: 10
+  initialHomingLasersDuration: 20
+  tripleShotExtendDelta: 4
+  doubleHelixShotExtendDelta: 8
+  homingLasersExtendDelta: 12
   engines:
   - {fileID: 8455950858909578420}
   - {fileID: 1953609768771588779}

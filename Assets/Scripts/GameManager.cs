@@ -8,6 +8,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private bool isGameOver = false;
 
+    private void Awake()
+    {
+        QualitySettings.vSyncCount = 0;  // VSync must be disabled
+        Application.targetFrameRate = 60;
+    }
+
     public void ToggleGameOver(bool toggle)
     {
         isGameOver = toggle;
