@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shotFrequency: 2
-  maxShotCount: 2
+  maxShotCount: 3
   enableShooting: 1
 --- !u!114 &6324674912400408441
 MonoBehaviour:
@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f60b26f94d755ee4897aca1e1c772495, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 1
+  hp: 2
   dmgMaterial: {fileID: 2100000, guid: 04e055516f754bd41b9d66585704ce82, type: 2}
 --- !u!1001 &1504403928319848281
 PrefabInstance:

@@ -31,9 +31,18 @@ public class HomingMover : MonoBehaviour, IMovable
     // An alternative is to rotate ship using Cross Product and using rigidbody 2d
     public void Move(float deltaTime)
     {
-        if (enabled && target != null)
+        if (enabled)
         {
-            direction = (target.transform.position - transform.position).normalized;
+            // If target becomes null due to it being destroyed before this projectile got to its destination
+            // default direction to go up
+            if (target == null)
+            {
+                direction = transform.up;
+            }
+            else
+            {
+                direction = (target.transform.position - transform.position).normalized;
+            }
 
             // Why this code doesn't work ~ explain in an article TODO
             // This function causes ship to rotate towards a specific direction and will cause the ship to move away from player on rotation
@@ -44,12 +53,6 @@ public class HomingMover : MonoBehaviour, IMovable
             float rotateAmount = Vector3.Cross(direction, transform.up).z;
             rb.angularVelocity = -rotateAmount * rotateSpeed;
             transform.Translate(direction * speed * deltaTime, Space.World);
-        }
-
-        // Destroy game object if target becomes null
-        if (target == null)
-        {
-            Destroy(gameObject);
         }
     }
 

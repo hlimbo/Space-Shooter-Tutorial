@@ -50,12 +50,7 @@ public class SpawnManager : MonoBehaviour
             float spawnHeight = mainCamera.transform.position.y + mainCamera.orthographicSize + powerupYOffset;
             yield return new WaitForSeconds(spawnDelay);
             Vector3 spawnPosition = new Vector3(RandomXPosition(), spawnHeight, 0f);
-            // 90 percent chance a power-up will spawn from the sky
-            //if (Random.value <= 0.9f)
-            //{
-                SpawnRandomPowerup(spawnPosition);
-            //}
-            
+            SpawnRandomPowerup(spawnPosition); 
         }
     }
 

@@ -19,12 +19,16 @@ public class EnemyBrain : BaseEnemyBrain
     [SerializeField]
     private bool enableShooting;
 
-    private void Start()
+    private void Awake()
     {
-        lastShotTime = Time.time;
         movable = GetComponent<IMovable>();
         shootable = transform.GetComponentInChildren<IShootable>();
         destructible = GetComponent<Destructible>();
+    }
+
+    private void Start()
+    {
+        lastShotTime = Time.time;
     }
 
     private void Update()

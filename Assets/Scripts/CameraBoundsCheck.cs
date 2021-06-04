@@ -13,6 +13,10 @@ public class CameraBoundsCheck : MonoBehaviour
     [SerializeField]
     private float yOffset = 0f;
 
+    [SerializeField]
+    private float lifetimeOutsideOfCamera = 3f;
+    private float startTime;
+
     void Awake()
     {
         mainCamera = FindObjectOfType<Camera>();
@@ -20,6 +24,11 @@ public class CameraBoundsCheck : MonoBehaviour
         // Orthographic width: https://answers.unity.com/questions/230190/how-to-get-the-width-and-height-of-a-orthographic.html
         camHeight = 2f * mainCamera.orthographicSize;
         camWidth = camHeight * mainCamera.aspect;
+    }
+
+    void Start()
+    {
+        startTime = Time.time;
     }
 
     public bool IsOutOfBounds
@@ -52,6 +61,16 @@ public class CameraBoundsCheck : MonoBehaviour
         else if(isVisibleInCamera && IsOutOfBounds)
         {
             Destroy(gameObject);
+        }
+        else if(!isVisibleInCamera && IsOutOfBounds)
+        {
+            // If the movable object never makes it into camera view 
+            // (e.g. not moving or moving away from camera)
+            // then set a preset lifetime for this object to live
+            if(Time.time - startTime > lifetimeOutsideOfCamera)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

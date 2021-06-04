@@ -16,6 +16,9 @@ public class SmartEnemyBrain : BaseEnemyBrain
     [SerializeField]
     private float yShotOffset = 4f;
 
+    [SerializeField]
+    private float shotFrequency = 0.5f;
+
     private Coroutine shootRoutine;
 
     void Awake()
@@ -55,7 +58,7 @@ public class SmartEnemyBrain : BaseEnemyBrain
         {
             shootable?.FireShot();
             --shotCount;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(shotFrequency);
         }
     }
 }

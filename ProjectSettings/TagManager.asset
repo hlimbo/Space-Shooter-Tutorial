@@ -10,6 +10,7 @@ TagManager:
   - EnemyLaser
   - Sensor
   - Boss
+  - PossiblePaths
   layers:
   - Default
   - TransparentFX

@@ -63,7 +63,6 @@ public class SplineWalker : MonoBehaviour
 
         // teleport to the next point defined by the Bezier Spline
         Vector3 position = spline.GetPoint(progress);
-        //Debug.Log("point: " + position);
         transform.localPosition = position;
         
         // always look ahead of the path when moving

@@ -68,7 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shotFrequency: 2
   hpSlider: {fileID: 0}
-  totalHp: 150
+  totalHp: 250
   dmgMaterial: {fileID: 2100000, guid: 04e055516f754bd41b9d66585704ce82, type: 2}
 --- !u!50 &8208471614286769653
 Rigidbody2D:
@@ -282,6 +282,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laserPrefab: {fileID: 5161141811472659860, guid: 33b191cd9b166f04888ee2bdbd2513bf, type: 3}
   speed: 4
+  bulletsPerShot: 3
+  angle: 45
 --- !u!1 &5102244393171775043
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,6 +438,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laserPrefab: {fileID: 5161141811472659860, guid: 33b191cd9b166f04888ee2bdbd2513bf, type: 3}
   speed: 4
+  bulletsPerShot: 3
+  angle: 45
 --- !u!1 &5102244393656467218
 GameObject:
   m_ObjectHideFlags: 0

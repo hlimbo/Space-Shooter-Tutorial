@@ -19,6 +19,8 @@ public class WaveManager : MonoBehaviour
 
     private GameObject bossUi;
 
+    private Player player;
+
 
     public void DecrementEnemyCount ()
     {
@@ -33,6 +35,7 @@ public class WaveManager : MonoBehaviour
     private void Awake()
     {
         uiManager = FindObjectOfType<UiManager>();
+        player = FindObjectOfType<Player>();
         bossUi = GameObject.Find("BossHp");
         bossUi.SetActive(false);
     }
@@ -62,6 +65,12 @@ public class WaveManager : MonoBehaviour
     {
         while(waveIndex < waves.Length)
         {
+            // if player is dead, don't start the next wave
+            if (player == null)
+            {
+                yield break;
+            }
+
             var currentWave = waves[waveIndex];
             CalculateActiveEnemyCount(currentWave);
 

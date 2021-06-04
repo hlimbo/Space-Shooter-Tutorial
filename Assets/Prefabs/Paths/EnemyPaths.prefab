@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4531138900078498113}
   m_Layer: 0
   m_Name: EnemyPath1
-  m_TagString: Untagged
+  m_TagString: PossiblePaths
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 4531138900911998047}
   m_Layer: 0
   m_Name: EnemyPath3
-  m_TagString: Untagged
+  m_TagString: PossiblePaths
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 4531138901307295271}
   m_Layer: 0
   m_Name: EnemyPath2
-  m_TagString: Untagged
+  m_TagString: PossiblePaths
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -156,7 +156,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4531138901307295270}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.85, y: 5.65, z: 0}
+  m_LocalPosition: {x: 8.29, y: 5.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4531138901040712106}
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points:
   - {x: -0.20201445, y: 4.727033, z: 0}
-  - {x: 14.920984, y: 0.44926453, z: 0}
-  - {x: -8.159513, y: -16.077654, z: 0}
-  - {x: -0.30776167, y: -17.28394, z: 0}
+  - {x: 11.269321, y: 0.30021763, z: 0}
+  - {x: -9.799034, y: -12.8731365, z: 0}
+  - {x: 2.0769968, y: -16.911322, z: 0}
   modes: 0000000000000000

@@ -1,5 +1,7 @@
 using UnityEngine;
 using SplineFramework;
+using UnityEngine.Assertions;
+using System.Linq;
 
 public class PathFollower : MonoBehaviour, IMovable
 {
@@ -34,6 +36,17 @@ public class PathFollower : MonoBehaviour, IMovable
                 // Set this game-object's local up axis (green axis) to point towards the direction its traveling on the spline
                 transform.up = (transform.position - position).normalized;
                 transform.position = position;
+            }
+            else
+            {
+                // Find random path to follow in the event PathPicker does not pick
+                // a valid random path for the enemy
+                BezierSpline[] paths = GameObject.FindGameObjectsWithTag("PossiblePaths")
+                    .Select(g => g.GetComponent<BezierSpline>()).ToArray();
+
+                Assert.IsTrue(paths.Length > 0, "Possible Bezier Spline Paths not in the scene. Make sure to spawn them first");
+                int randomPathIndex = Random.Range(0, paths.Length);
+                AssignPath(paths[randomPathIndex]);
             }
         }
     }

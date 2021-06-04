@@ -252,7 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f60b26f94d755ee4897aca1e1c772495, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 20
+  hp: 25
   dmgMaterial: {fileID: 2100000, guid: 04e055516f754bd41b9d66585704ce82, type: 2}
 --- !u!1 &475160120156700046
 GameObject:
@@ -323,8 +323,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afa6bcf2be774044385daf43332a7f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shotFrequency: 3
-  maxShotCount: 2
+  shotFrequency: 2
+  maxShotCount: 4
   enableShooting: 1
 --- !u!114 &110562645902950555
 MonoBehaviour:
@@ -340,6 +340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isVisibleInCamera: 0
   yOffset: 2.3
+  lifetimeOutsideOfCamera: 3
 --- !u!114 &475160120156700041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,7 +353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fde99e940597e244ba42e03b793afa70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveBackDelayInSeconds: 6
+  moveBackDelayInSeconds: 10
   maxTravelDistance: 6
   yOffset: 2.3
   speed: 2
@@ -401,3 +402,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laserPrefab: {fileID: 8201904950035199610, guid: 9b1b66be52dd4754db3e1f7911bb2555, type: 3}
   speed: 2
+  bulletsPerShot: 3
+  angle: 45

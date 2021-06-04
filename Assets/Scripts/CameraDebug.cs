@@ -6,7 +6,6 @@ public class CameraDebug : MonoBehaviour
 {
     void OnDrawGizmosSelected()
     {
-        Debug.Log("drawing");
         Camera camera = GetComponent<Camera>();
         Vector3 p = camera.ViewportToWorldPoint(new Vector3(1, 1, camera.nearClipPlane));
         Gizmos.color = Color.red;
