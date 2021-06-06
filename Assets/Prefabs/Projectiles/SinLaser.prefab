@@ -148,7 +148,7 @@ MonoBehaviour:
   speed: 8
   theta: 0
   amplitude: 0.5
-  waveFrequency: 0.75
+  waveFrequency: 4
   waveDirection: 1
 --- !u!114 &599703579669330384
 MonoBehaviour:
@@ -164,3 +164,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isVisibleInCamera: 0
   yOffset: 0
+  lifetimeOutsideOfCamera: 3

@@ -308,16 +308,16 @@ public class Player : MonoBehaviour
 
     void CalculateMovement ()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        int horizontalInput = (int)Input.GetAxisRaw("Horizontal");
+        int verticalInput = (int)Input.GetAxisRaw("Vertical");
 
-        if (horizontalInput < 0f)
+        if (horizontalInput < 0)
         {
             animator.SetBool("isTurningLeft", true);
             animator.SetBool("isTurningRight", false);
 
         }
-        else if (horizontalInput > 0f)
+        else if (horizontalInput > 0)
         {
             animator.SetBool("isTurningLeft", false);
             animator.SetBool("isTurningRight", true);

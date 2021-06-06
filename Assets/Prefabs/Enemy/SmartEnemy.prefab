@@ -118,7 +118,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.8
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -339,6 +339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isVisibleInCamera: 0
   yOffset: 2
+  lifetimeOutsideOfCamera: 3
 --- !u!114 &6535191846079438757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -367,6 +368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shotCount: 4
   yShotOffset: 2
+  shotFrequency: 0.5
 --- !u!1 &8934009859602862981
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,4 +415,3 @@ MonoBehaviour:
   laserPrefab: {fileID: 8201904950035199610, guid: 9b1b66be52dd4754db3e1f7911bb2555, type: 3}
   speed: 3
   bulletsPerShot: 3
-  angle: 45

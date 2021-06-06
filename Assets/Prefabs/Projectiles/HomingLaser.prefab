@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98e2f6a5d74a03f4abee5ddfba12f726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 20
   rotateSpeed: 100
   target: {fileID: 0}
 --- !u!114 &1465633439380427751
@@ -175,3 +175,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isVisibleInCamera: 0
   yOffset: 0
+  lifetimeOutsideOfCamera: 3

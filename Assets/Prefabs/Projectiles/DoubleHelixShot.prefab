@@ -43,6 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09cbc6173e8bef644a2d0e87da105639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ySpeed: 10
+  ySpeed: 15
   sinLaserPrefab: {fileID: 2251292377343617574, guid: ce92bcd61bdd14a42b3f6da44fa306df, type: 3}
   projectilePairCount: 12

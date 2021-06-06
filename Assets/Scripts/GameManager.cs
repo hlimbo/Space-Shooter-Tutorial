@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        QualitySettings.vSyncCount = 0;  // VSync must be disabled
+        // Target FPS = targetFrameRate / vSyncCount
+        QualitySettings.vSyncCount = 1;
         Application.targetFrameRate = 60;
     }
 
